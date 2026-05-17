@@ -24,15 +24,15 @@ export function TrendingDestinations() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
-          <h2 className="text-xl md:text-2xl font-bold text-slate-800">Trending Destinations</h2>
-          <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-full">
+          <h2 className="text-xl md:text-2xl font-bold text-primary">Trending Destinations</h2>
+          <div className="flex items-center gap-1 bg-sand p-1 rounded-full">
             <button
               onClick={() => setActiveTab("domestic")}
               className={cn(
                 "px-5 py-2 text-sm font-medium rounded-full transition-all",
                 activeTab === "domestic"
                   ? "bg-primary text-white shadow-sm"
-                  : "text-slate-500 hover:text-slate-700"
+                  : "text-text-muted hover:text-primary"
               )}
             >
               Domestic
@@ -43,7 +43,7 @@ export function TrendingDestinations() {
                 "px-5 py-2 text-sm font-medium rounded-full transition-all",
                 activeTab === "international"
                   ? "bg-primary text-white shadow-sm"
-                  : "text-slate-500 hover:text-slate-700"
+                  : "text-text-muted hover:text-primary"
               )}
             >
               International
@@ -55,7 +55,7 @@ export function TrendingDestinations() {
         <div className="relative">
           <button
             onClick={() => scroll("left")}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all border border-slate-100"
+            className="absolute left-0 top-1/2 -tranprimary-y-1/2 z-10 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all border border-sand"
             aria-label="Scroll left"
           >
             <ChevronLeft className="w-5 h-5" />
@@ -104,7 +104,7 @@ export function TrendingDestinations() {
 
           <button
             onClick={() => scroll("right")}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all border border-slate-100"
+            className="absolute right-0 top-1/2 -tranprimary-y-1/2 z-10 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all border border-sand"
             aria-label="Scroll right"
           >
             <ChevronRight className="w-5 h-5" />

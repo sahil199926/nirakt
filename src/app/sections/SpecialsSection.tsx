@@ -1,17 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { SPECIALS } from "@/app/lib/constants";
 import { ScrollReveal } from "@/app/components/ScrollReveal";
 
 export function SpecialsSection() {
   return (
-    <section className="py-14 md:py-18 bg-slate-50">
+    <section className="py-14 md:py-18 bg-sand">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollReveal>
-          <h2 className="text-xl md:text-2xl font-bold text-slate-800 mb-8">
+          <h2 className="text-xl md:text-2xl font-bold text-primary mb-8">
             Nirakt Travels Specials
           </h2>
         </ScrollReveal>
@@ -92,7 +91,7 @@ function SpecialCard({
         </div>
 
         <div className="flex items-center justify-between">
-          <span className="inline-flex items-center gap-1.5 px-4 py-2 bg-white text-slate-800 text-xs font-semibold rounded-full group-hover:bg-accent group-hover:text-white transition-colors">
+          <span className="inline-flex items-center gap-1.5 px-4 py-2 bg-white text-primary text-xs font-semibold rounded-full group-hover:bg-accent group-hover:text-white transition-colors">
             {cta || "View More"}
             <ArrowUpRight className="w-3.5 h-3.5" />
           </span>

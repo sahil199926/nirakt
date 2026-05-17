@@ -5,7 +5,7 @@ import { ScrollReveal } from "@/app/components/ScrollReveal";
 
 export function CTABannerSection() {
   return (
-    <section className="py-12 md:py-16 bg-gradient-to-r from-primary to-[#0a3d7a]">
+    <section className="py-12 md:py-16 bg-gradient-to-r from-primary to-secondary">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <ScrollReveal>
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Ready to Start Your Journey?</h2>

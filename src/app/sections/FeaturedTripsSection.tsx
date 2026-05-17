@@ -30,7 +30,7 @@ export function FeaturedTripsSection() {
           {FEATURED_TRIPS.map((trip, index) => (
             <ScrollReveal key={trip.title} delay={index * 0.08}>
               <a href="#contact" onClick={(e) => { e.preventDefault(); document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }}
-                className="group block bg-white rounded-2xl overflow-hidden border border-slate-100 hover:shadow-card-hover transition-all duration-300"
+                className="group block bg-white rounded-2xl overflow-hidden border border-sand hover:shadow-card-hover transition-all duration-300"
               >
                 <div className="relative h-48 overflow-hidden">
                   <Image src={trip.image} alt={trip.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 768px) 100vw, 25vw" />
@@ -49,16 +49,16 @@ export function FeaturedTripsSection() {
                   <div className="flex items-center gap-1.5 text-text-muted text-[11px] font-medium mb-1.5">
                     <Clock className="w-3 h-3" /> {trip.duration}
                   </div>
-                  <h3 className="text-sm font-semibold text-slate-800 mb-1">{trip.title}</h3>
+                  <h3 className="text-sm font-semibold text-primary mb-1">{trip.title}</h3>
                   <p className="text-xs text-text-muted leading-relaxed line-clamp-2 mb-3">{trip.description}</p>
-                  <div className="flex items-center justify-between pt-3 border-t border-slate-100">
+                  <div className="flex items-center justify-between pt-3 border-t border-sand">
                     <div>
                       <span className="text-[10px] text-text-muted">From</span>
                       <p className="text-base font-bold text-primary">{trip.price}</p>
                     </div>
                     <div className="flex items-center gap-1">
                       <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                      <span className="text-xs font-semibold text-slate-700">{trip.rating}</span>
+                      <span className="text-xs font-semibold text-primary">{trip.rating}</span>
                       <span className="text-[10px] text-text-muted">({trip.reviewCount})</span>
                     </div>
                   </div>

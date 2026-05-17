@@ -38,7 +38,7 @@ export function ContactSection() {
           <div className="lg:col-span-2">
             <ScrollReveal direction="left">
               <span className="text-[11px] font-bold text-primary uppercase tracking-[0.12em]">Get In Touch</span>
-              <h2 className="text-2xl md:text-3xl font-bold text-slate-800 mt-2 mb-3">Let&apos;s Plan Your Trip</h2>
+              <h2 className="text-2xl md:text-3xl font-bold text-primary mt-2 mb-3">Let&apos;s Plan Your Trip</h2>
               <p className="text-sm text-text-muted mb-7 leading-relaxed">Visit us, call us, or drop a message. We&apos;re here to make your travel dreams real.</p>
             </ScrollReveal>
 
@@ -47,25 +47,25 @@ export function ContactSection() {
                 const Icon = getIcon(info.label);
                 return (
                   <ScrollReveal key={info.label} delay={index * 0.06}>
-                    <div className={cn("flex items-start gap-3 p-3 rounded-xl transition-colors", info.href ? "cursor-pointer hover:bg-slate-50" : "hover:bg-slate-50")}
+                    <div className={cn("flex items-start gap-3 p-3 rounded-xl transition-colors", info.href ? "cursor-pointer hover:bg-sand" : "hover:bg-sand")}
                       onClick={() => { if (info.label === "Phone" || info.label === "Mobile" || info.label === "WhatsApp") handleCopy(info.value, info.label); }}>
                       <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
                         <Icon className="w-4 h-4 text-primary" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">{info.label}</p>
+                        <p className="text-[10px] font-bold text-text-muted uppercase tracking-wide">{info.label}</p>
                         {info.href ? (
                           <a href={info.href} target={info.href.startsWith("http") ? "_blank" : undefined} rel={info.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                            className="text-sm text-slate-700 hover:text-primary transition-colors font-medium" onClick={(e) => e.stopPropagation()}>
+                            className="text-sm text-primary hover:text-primary transition-colors font-medium" onClick={(e) => e.stopPropagation()}>
                             {info.value}
                           </a>
                         ) : (
-                          <p className="text-sm text-slate-700 font-medium">{info.value}</p>
+                          <p className="text-sm text-primary font-medium">{info.value}</p>
                         )}
                       </div>
                       {(info.label === "Phone" || info.label === "Mobile" || info.label === "WhatsApp") && (
                         <div className="shrink-0 mt-1">
-                          {copied === info.label ? <Check className="w-3.5 h-3.5 text-green-500" /> : <Copy className="w-3.5 h-3.5 text-slate-300" />}
+                          {copied === info.label ? <Check className="w-3.5 h-3.5 text-green-500" /> : <Copy className="w-3.5 h-3.5 text-text-muted" />}
                         </div>
                       )}
                     </div>
@@ -78,7 +78,7 @@ export function ContactSection() {
               <div className="flex items-center gap-2 mt-5 ml-1">
                 {SOCIAL_LINKS.map((social) => (
                   <a key={social.label} href={social.href} target="_blank" rel="noopener noreferrer"
-                    className="w-9 h-9 rounded-lg bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-primary hover:text-white transition-all" aria-label={social.label}>
+                    className="w-9 h-9 rounded-lg bg-sand flex items-center justify-center text-text-muted hover:bg-primary hover:text-white transition-all" aria-label={social.label}>
                     <social.icon className="w-4 h-4" />
                   </a>
                 ))}
@@ -88,8 +88,8 @@ export function ContactSection() {
 
           <div className="lg:col-span-3">
             <ScrollReveal direction="right">
-              <div className="bg-white rounded-2xl p-5 md:p-7 border border-slate-100 shadow-card">
-                <h3 className="text-base font-semibold text-slate-800 mb-0.5">Send an Enquiry</h3>
+              <div className="bg-white rounded-2xl p-5 md:p-7 border border-sand shadow-card">
+                <h3 className="text-base font-semibold text-primary mb-0.5">Send an Enquiry</h3>
                 <p className="text-xs text-text-muted mb-5">Fill in the details and our expert will get back to you within 30 minutes.</p>
                 <LeadCaptureForm variant="full" />
               </div>

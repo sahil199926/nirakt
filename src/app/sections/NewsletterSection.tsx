@@ -27,7 +27,7 @@ export function NewsletterSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="relative rounded-3xl overflow-hidden bg-[#0a2540] p-8 md:p-12"
+          className="relative rounded-3xl overflow-hidden bg-primary p-8 md:p-12"
         >
           {/* Monument silhouettes */}
           <div
@@ -57,7 +57,7 @@ export function NewsletterSection() {
             ) : (
               <form onSubmit={handleSubmit} className="flex gap-2">
                 <div className="flex-1 relative">
-                  <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+                  <Mail className="absolute left-3.5 top-1/2 -tranprimary-y-1/2 w-4 h-4 text-white/40" />
                   <input
                     type="email"
                     value={email}

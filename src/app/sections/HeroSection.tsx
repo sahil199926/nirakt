@@ -20,7 +20,7 @@ export function HeroSection() {
     <section id="home" className="relative min-h-[88vh] flex items-center overflow-hidden">
       <div className="absolute inset-0">
         <Image src="/images/hero-bg.jpg" alt="Beautiful beach destination" fill className="object-cover" priority sizes="100vw" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/10" />
+        <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/40 to-black/10" />
       </div>
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 pt-32">
@@ -52,39 +52,39 @@ export function HeroSection() {
         >
           <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-3">
             <div className="flex-1 relative">
-              <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1 ml-1">Destination</label>
+              <label className="block text-[11px] font-bold text-text-muted uppercase tracking-wider mb-1 ml-1">Destination</label>
               <div className="relative">
-                <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <MapPin className="absolute left-3 top-1/2 -tranprimary-y-1/2 w-4 h-4 text-text-muted" />
                 <select value={destination} onChange={(e) => setDestination(e.target.value)}
-                  className="w-full pl-10 pr-8 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-700 appearance-none focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all cursor-pointer"
+                  className="w-full pl-10 pr-8 py-2.5 bg-sand border border-text-muted rounded-xl text-sm text-primary appearance-none focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all cursor-pointer"
                 >
                   <option value="">Where do you want to go?</option>
                   {DESTINATION_TYPES.map((type) => <option key={type} value={type}>{type}</option>)}
                 </select>
-                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+                <ChevronDown className="absolute right-3 top-1/2 -tranprimary-y-1/2 w-4 h-4 text-text-muted pointer-events-none" />
               </div>
             </div>
 
             <div className="flex-1 relative">
-              <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1 ml-1">Travel Date</label>
+              <label className="block text-[11px] font-bold text-text-muted uppercase tracking-wider mb-1 ml-1">Travel Date</label>
               <div className="relative">
-                <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <Calendar className="absolute left-3 top-1/2 -tranprimary-y-1/2 w-4 h-4 text-text-muted" />
                 <input type="date" value={date} onChange={(e) => setDate(e.target.value)} min={new Date().toISOString().split("T")[0]}
-                  className="w-full pl-10 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                  className="w-full pl-10 pr-3 py-2.5 bg-sand border border-text-muted rounded-xl text-sm text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                 />
               </div>
             </div>
 
             <div className="sm:w-36">
-              <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1 ml-1">Travelers</label>
+              <label className="block text-[11px] font-bold text-text-muted uppercase tracking-wider mb-1 ml-1">Travelers</label>
               <div className="relative">
-                <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <Users className="absolute left-3 top-1/2 -tranprimary-y-1/2 w-4 h-4 text-text-muted" />
                 <select value={travelers} onChange={(e) => setTravelers(e.target.value)}
-                  className="w-full pl-10 pr-8 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-700 appearance-none focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all cursor-pointer"
+                  className="w-full pl-10 pr-8 py-2.5 bg-sand border border-text-muted rounded-xl text-sm text-primary appearance-none focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all cursor-pointer"
                 >
                   {[1,2,3,4,5,6,7,8].map((n) => <option key={n} value={n}>{n} {n===1?"Person":"People"}</option>)}
                 </select>
-                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+                <ChevronDown className="absolute right-3 top-1/2 -tranprimary-y-1/2 w-4 h-4 text-text-muted pointer-events-none" />
               </div>
             </div>
 

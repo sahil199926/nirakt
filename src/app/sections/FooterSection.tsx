@@ -8,7 +8,7 @@ export function FooterSection() {
   const serviceLinks = SERVICE_CARDS.slice(0, 7);
 
   return (
-    <footer className="relative bg-[#0a3d7a] pt-14 md:pt-16 pb-8 overflow-hidden">
+    <footer className="relative bg-footer-bg pt-14 md:pt-16 pb-8 overflow-hidden">
       {/* World map background */}
       <div className="absolute inset-0 text-white pointer-events-none opacity-[0.04]"
         style={{ backgroundImage: "url(/images/world-map.svg)", backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundSize: "90% auto" }}

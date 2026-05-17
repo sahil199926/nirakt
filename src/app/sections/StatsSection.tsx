@@ -6,7 +6,7 @@ import { STATS } from "@/app/lib/constants";
 
 export function StatsSection() {
   return (
-    <section className="py-10 md:py-12 bg-white border-y border-slate-100">
+    <section className="py-10 md:py-12 bg-white border-y border-sand">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
           {STATS.map((stat, index) => (

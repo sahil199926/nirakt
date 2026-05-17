@@ -20,7 +20,7 @@ export function SectionHeading({ label, title, subtitle, light = false, classNam
         </span>
       </ScrollReveal>
       <ScrollReveal delay={0.08}>
-        <h2 className={cn("text-2xl md:text-3xl font-bold tracking-tight mb-2", light ? "text-white" : "text-slate-800")}>
+        <h2 className={cn("text-2xl md:text-3xl font-bold tracking-tight mb-2", light ? "text-white" : "text-primary")}>
           {title}
         </h2>
       </ScrollReveal>
