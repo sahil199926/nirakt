@@ -114,6 +114,27 @@
     background-color: rgba(0, 107, 143, 0.2);
     color: #006B8F;
   }
+
+  /* iOS Safari: native date inputs ignore width:100% and overflow flex/block parents */
+  input[type="date"] {
+    -webkit-appearance: none;
+    appearance: none;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  input[type="date"]::-webkit-date-and-time-value {
+    text-align: left;
+    min-width: 0;
+  }
+}
+
+@supports (-webkit-touch-callout: none) {
+  input[type="date"] {
+    -webkit-min-logical-width: 0;
+    width: 100%;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
