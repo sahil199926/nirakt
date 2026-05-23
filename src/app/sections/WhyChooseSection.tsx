@@ -1,5 +1,3 @@
-"use client";
-
 import { SectionHeading } from "@/app/components/SectionHeading";
 import { ScrollReveal } from "@/app/components/ScrollReveal";
 import { WHY_CHOOSE_CARDS } from "@/app/lib/constants";

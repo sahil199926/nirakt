@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { SPECIALS } from "@/app/lib/constants";
@@ -16,17 +14,14 @@ export function SpecialsSection() {
         </ScrollReveal>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-5">
-          {/* Tall card - left */}
           <ScrollReveal className="md:row-span-2">
             <SpecialCard {...SPECIALS[0]} className="h-full min-h-[340px] md:min-h-full" />
           </ScrollReveal>
 
-          {/* Wide card - top right */}
           <ScrollReveal delay={0.1} className="md:col-span-2">
             <SpecialCard {...SPECIALS[1]} className="min-h-[200px]" />
           </ScrollReveal>
 
-          {/* Two normal cards - bottom right */}
           <ScrollReveal delay={0.15}>
             <SpecialCard {...SPECIALS[2]} className="min-h-[200px]" />
           </ScrollReveal>
@@ -34,7 +29,6 @@ export function SpecialsSection() {
             <SpecialCard {...SPECIALS[3]} className="min-h-[200px]" />
           </ScrollReveal>
 
-          {/* Wide bottom card */}
           <ScrollReveal delay={0.25} className="md:col-span-3">
             <SpecialCard {...SPECIALS[4]} className="min-h-[200px]" />
           </ScrollReveal>
@@ -62,10 +56,6 @@ function SpecialCard({
   return (
     <a
       href="#contact"
-      onClick={(e) => {
-        e.preventDefault();
-        document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
-      }}
       className={`group relative block rounded-3xl overflow-hidden ${className}`}
     >
       <Image

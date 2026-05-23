@@ -61,9 +61,19 @@ export function LeadCaptureForm({
   ) => {
     setIsSubmitting(true);
     try {
-      // Simulate API call / EmailJS integration
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      console.log("Form submitted:", data);
+      const source =
+        variant === "hero"   ? "hero_form"  :
+        variant === "banner" ? "cta_banner" : "contact_form";
+
+      const res = await fetch("/api/leads", {
+        method:  "POST",
+        headers: { "Content-Type": "application/json" },
+        body:    JSON.stringify({ ...data, source }),
+      });
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body.error ?? "Submission failed");
+      }
       setIsSuccess(true);
       onSuccess?.();
       setTimeout(() => {

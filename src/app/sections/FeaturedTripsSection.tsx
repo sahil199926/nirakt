@@ -1,6 +1,5 @@
-"use client";
-
 import Image from "next/image";
+import Link from "next/link";
 import { Clock, Star, ArrowRight, ArrowUpRight } from "lucide-react";
 import { SectionHeading } from "@/app/components/SectionHeading";
 import { ScrollReveal } from "@/app/components/ScrollReveal";
@@ -19,17 +18,18 @@ export function FeaturedTripsSection() {
               className="text-left !mx-0"
             />
           </div>
-          <a href="#contact" onClick={(e) => { e.preventDefault(); document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }}
+          <Link
+            href="/packages"
             className="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-secondary transition-colors shrink-0 mb-1"
           >
             View All Packages <ArrowRight className="w-4 h-4" />
-          </a>
+          </Link>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {FEATURED_TRIPS.map((trip, index) => (
             <ScrollReveal key={trip.title} delay={index * 0.08}>
-              <a href="#contact" onClick={(e) => { e.preventDefault(); document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }}
+              <a href="#contact"
                 className="group block bg-white rounded-2xl overflow-hidden border border-sand hover:shadow-card-hover transition-all duration-300"
               >
                 <div className="relative h-48 overflow-hidden">

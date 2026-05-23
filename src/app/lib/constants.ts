@@ -5,11 +5,8 @@ import {
   Headphones,
   Sparkles,
   Globe,
-  Flower2,
   Heart,
-  Mountain,
   Plane,
-  TentTree,
   Building2,
   Gem,
   Gift,
@@ -24,7 +21,6 @@ import {
   InstagramIcon,
   FacebookIcon,
   YoutubeIcon,
-  LinkedinIcon,
 } from "@/app/components/SocialIcons";
 
 export const BRAND = {
@@ -36,10 +32,9 @@ export const BRAND = {
   address:
     "1/9, Ground Floor, Indira Vikas, Opposite Nirankari School, Dr. Mukherjee Nagar, Delhi-110009",
   social: {
-    instagram: "https://instagram.com/nirakt_travels",
-    facebook: "https://facebook.com/nirakt_travels",
-    youtube: "https://youtube.com/nirakt_travels",
-    linkedin: "https://linkedin.com/company/nirakt-travels",
+    instagram: "https://www.instagram.com/nirakt_travels?igsh=MWt5NW8zczJsd3Z2aw==",
+    facebook: "https://www.facebook.com/share/1EaRvDpSGv/?mibextid=wwXIfr",
+    youtube: "https://youtube.com/@nirakttravelsofficial?si=w6TJzZbnBNXRMn_A",
   },
 };
 
@@ -53,6 +48,7 @@ export const NAV_LINKS = [
   { label: "Home", href: "#home" },
   { label: "Destinations", href: "#destinations" },
   { label: "Services", href: "#services" },
+  { label: "Packages", href: "/packages" },
   { label: "About", href: "#about" },
   { label: "Contact", href: "#contact" },
 ];
@@ -162,52 +158,39 @@ export const WHY_CHOOSE_CARDS = [
 
 export const SERVICE_CARDS = [
   {
-    icon: Flower2,
-    title: "Spiritual Yatras",
-    description: "Chardham Yatra, Jyotirlinga circuits, temple tours & sacred pilgrimages across India.",
-    image: "/images/destinations/kedarnath.jpg",
-  },
-  {
     icon: Heart,
-    title: "Honeymoon & Couple Trips",
-    description: "Romantic getaways to Bali, Maldives, Kerala, Goa & more with surprise arrangements.",
-    image: "/images/destinations/maldives.jpg",
-  },
-  {
-    icon: Mountain,
-    title: "Domestic Holidays",
-    description: "Explore Himachal, Rajasthan, Kerala, North East, Goa & 100+ Indian destinations.",
-    image: "/images/destinations/manali.jpg",
-  },
-  {
-    icon: Plane,
-    title: "International Tours",
-    description: "Bali, Thailand, Dubai, Maldives, Singapore, Europe & beyond — visa assistance included.",
-    image: "/images/destinations/singapore.jpg",
-  },
-  {
-    icon: TentTree,
-    title: "Trekking & Adventure",
-    description: "Pan-India trekking — Himalayas, Western Ghats, North East & hidden trails.",
-    image: "/images/destinations/kerala.jpg",
+    title: "Couple's Celebration & Pre-Wedding",
+    description: "Honeymoon tours, anniversary getaways, luxury couple trips, and cinematic pre-wedding shoots.",
+    image: "/images/services/couples-celebration.jpg",
+    href: "/services/couples-celebration",
   },
   {
     icon: Building2,
-    title: "Corporate & Group Tours",
-    description: "Team outings, MICE events, student trips & group travel with seamless logistics.",
-    image: "/images/destinations/delhi.jpg",
-  },
-  {
-    icon: Gem,
-    title: "Destination Weddings",
-    description: "Palace weddings in Rajasthan, beach weddings in Goa, luxury resort celebrations.",
-    image: "/images/destinations/tajmahal.jpg",
+    title: "Corporate & Group Travel",
+    description: "MICE events, team-building adventures, incentive trips, and educational institutional tours.",
+    image: "/images/services/corporate-travel.jpg",
+    href: "/services/corporate-group-travel",
   },
   {
     icon: Gift,
     title: "Proposal & Surprise Planning",
-    description: "Private yacht dinners, rooftop setups, drone coverage, cinematic photography.",
-    image: "/images/destinations/thailand.jpg",
+    description: "Private yacht dinners, rooftop setups, drone coverage, and cinematic surprise events.",
+    image: "/images/services/proposal-planning.jpg",
+    href: "/services/proposal-surprise-planning",
+  },
+  {
+    icon: Plane,
+    title: "Leisure & International Travel",
+    description: "Family holidays, beach escapes, Southeast Asia tours, Europe packages & customized itineraries.",
+    image: "/images/services/leisure-vacation.jpg",
+    href: "/services/leisure-vacation-international",
+  },
+  {
+    icon: Gem,
+    title: "Destination Wedding & Events",
+    description: "Palace weddings, beach weddings, luxury resort celebrations & grand destination events.",
+    image: "/images/services/destination-wedding.jpg",
+    href: "/services/destination-wedding-events",
   },
 ];
 
@@ -332,7 +315,6 @@ export const SOCIAL_LINKS = [
   { icon: InstagramIcon, href: BRAND.social.instagram, label: "Instagram" },
   { icon: FacebookIcon, href: BRAND.social.facebook, label: "Facebook" },
   { icon: YoutubeIcon, href: BRAND.social.youtube, label: "YouTube" },
-  { icon: LinkedinIcon, href: BRAND.social.linkedin, label: "LinkedIn" },
 ];
 
 export const DESTINATION_TYPES = [

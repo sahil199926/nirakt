@@ -1,5 +1,3 @@
-"use client";
-
 import { ArrowRight } from "lucide-react";
 import { ScrollReveal } from "@/app/components/ScrollReveal";
 
@@ -15,9 +13,7 @@ export function CTABannerSection() {
         </ScrollReveal>
         <ScrollReveal delay={0.2}>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <a href="#contact" onClick={(e) => { e.preventDefault(); document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }}
-              className="inline-flex items-center gap-2 px-7 py-3 bg-accent text-white font-semibold rounded-full hover:brightness-110 transition-all shadow-button"
-            >
+            <a href="#contact" className="inline-flex items-center gap-2 px-7 py-3 bg-accent text-white font-semibold rounded-full hover:brightness-110 transition-all shadow-button">
               Get Free Quote <ArrowRight className="w-4 h-4" />
             </a>
             <a href="tel:+919319053504" className="inline-flex items-center gap-2 px-7 py-3 bg-white/10 text-white font-medium rounded-full hover:bg-white/20 transition-all border border-white/20">

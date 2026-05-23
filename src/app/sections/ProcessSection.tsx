@@ -1,5 +1,3 @@
-"use client";
-
 import { SectionHeading } from "@/app/components/SectionHeading";
 import { ScrollReveal } from "@/app/components/ScrollReveal";
 import { PROCESS_STEPS } from "@/app/lib/constants";
@@ -32,9 +30,7 @@ export function ProcessSection() {
         </div>
 
         <div className="text-center mt-10">
-          <a href="#contact" onClick={(e) => { e.preventDefault(); document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }}
-            className="inline-flex items-center gap-2 px-7 py-3 bg-accent text-white font-semibold rounded-full shadow-button hover:brightness-110 transition-all"
-          >
+          <a href="#contact" className="inline-flex items-center gap-2 px-7 py-3 bg-accent text-white font-semibold rounded-full shadow-button hover:brightness-110 transition-all">
             Start Your Journey <ArrowRight className="w-4 h-4" />
           </a>
         </div>

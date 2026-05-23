@@ -3,10 +3,12 @@
 import { useState } from "react";
 import { useScrollPosition } from "@/app/hooks/useScrollPosition";
 import { useMediaQuery } from "@/app/hooks/useMediaQuery";
-import { motion, AnimatePresence } from "framer-motion";
-import { Phone, Menu, X, Plane, MapPin } from "lucide-react";
+import Link from "next/link";
+import { Phone, Menu, X, MapPin } from "lucide-react";
 import { NAV_LINKS, BRAND } from "@/app/lib/constants";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
+import Logo from "@/assets/logo.jpeg";
 
 export function Navbar() {
   const scrollPosition = useScrollPosition();
@@ -22,10 +24,7 @@ export function Navbar() {
 
   return (
     <>
-      <motion.nav
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
+      <nav
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b",
           isScrolled
@@ -37,7 +36,12 @@ export function Navbar() {
           <div className="flex items-center justify-between h-16 lg:h-[68px]">
             <a href="#home" onClick={(e) => { e.preventDefault(); handleNavClick("#home"); }} className="flex items-center gap-2.5 shrink-0">
               <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
-                <Plane className="w-5 h-5 text-white" />
+                <Image
+                  src={Logo}
+                  alt="Logo of Nirakt Travels"
+                  height={100}
+                  width={100}
+                />
               </div>
               <div className="flex flex-col">
                 <span className="text-[17px] font-bold text-primary leading-tight tracking-tight">NIRAKT</span>
@@ -47,16 +51,26 @@ export function Navbar() {
 
             {isDesktop && (
               <div className="flex items-center gap-0.5">
-                {NAV_LINKS.map((link) => (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    onClick={(e) => { e.preventDefault(); handleNavClick(link.href); }}
-                    className="px-4 py-2 text-[13px] font-medium text-text-muted hover:text-primary rounded-full hover:bg-sand transition-colors"
-                  >
-                    {link.label}
-                  </a>
-                ))}
+                {NAV_LINKS.map((link) =>
+                  link.href.startsWith("/") ? (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className="px-4 py-2 text-[13px] font-medium text-text-muted hover:text-primary rounded-full hover:bg-sand transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      onClick={(e) => { e.preventDefault(); handleNavClick(link.href); }}
+                      className="px-4 py-2 text-[13px] font-medium text-text-muted hover:text-primary rounded-full hover:bg-sand transition-colors"
+                    >
+                      {link.label}
+                    </a>
+                  )
+                )}
               </div>
             )}
 
@@ -77,29 +91,33 @@ export function Navbar() {
             </div>
           </div>
         </div>
-      </motion.nav>
+      </nav>
 
-      <AnimatePresence>
-        {mobileMenuOpen && !isDesktop && (
-          <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }} className="fixed inset-0 z-40 bg-white pt-20 px-6">
-            <div className="flex flex-col gap-1">
-              {NAV_LINKS.map((link) => (
+      {mobileMenuOpen && !isDesktop && (
+        <div className="fixed inset-0 z-40 bg-white pt-20 px-6">
+          <div className="flex flex-col gap-1">
+            {NAV_LINKS.map((link) =>
+              link.href.startsWith("/") ? (
+                <Link key={link.label} href={link.href} onClick={() => setMobileMenuOpen(false)} className="text-base font-medium text-primary py-3 px-4 rounded-xl hover:bg-sand transition-colors">
+                  {link.label}
+                </Link>
+              ) : (
                 <a key={link.label} href={link.href} onClick={(e) => { e.preventDefault(); handleNavClick(link.href); }} className="text-base font-medium text-primary py-3 px-4 rounded-xl hover:bg-sand transition-colors">
                   {link.label}
                 </a>
-              ))}
-              <div className="flex flex-col gap-3 mt-4 px-4">
-                <a href={`tel:${BRAND.mobile.replace(/\s/g, "")}`} className="inline-flex items-center justify-center gap-2 px-4 py-3 bg-primary text-white font-semibold rounded-full">
-                  <Phone className="w-5 h-5" /> Call Now
-                </a>
-                <a href="#contact" onClick={(e) => { e.preventDefault(); handleNavClick("#contact"); }} className="inline-flex items-center justify-center gap-2 px-4 py-3 bg-accent text-white font-semibold rounded-full">
-                  <MapPin className="w-5 h-5" /> Plan My Trip
-                </a>
-              </div>
+              )
+            )}
+            <div className="flex flex-col gap-3 mt-4 px-4">
+              <a href={`tel:${BRAND.mobile.replace(/\s/g, "")}`} className="inline-flex items-center justify-center gap-2 px-4 py-3 bg-primary text-white font-semibold rounded-full">
+                <Phone className="w-5 h-5" /> Call Now
+              </a>
+              <a href="#contact" onClick={(e) => { e.preventDefault(); handleNavClick("#contact"); }} className="inline-flex items-center justify-center gap-2 px-4 py-3 bg-accent text-white font-semibold rounded-full">
+                <MapPin className="w-5 h-5" /> Plan My Trip
+              </a>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+        </div>
+      )}
     </>
   );
 }

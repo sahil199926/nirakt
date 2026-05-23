@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { Mail, ArrowRight } from "lucide-react";
 
 export function NewsletterSection() {
@@ -22,14 +21,7 @@ export function NewsletterSection() {
   return (
     <section className="py-8 md:py-10">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="relative rounded-3xl overflow-hidden bg-primary p-8 md:p-12"
-        >
-          {/* Monument silhouettes */}
+        <div className="relative rounded-3xl overflow-hidden bg-primary p-8 md:p-12">
           <div
             className="absolute inset-0 text-white pointer-events-none"
             style={{
@@ -77,7 +69,7 @@ export function NewsletterSection() {
               </form>
             )}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

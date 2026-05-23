@@ -1,5 +1,3 @@
-"use client";
-
 import { ScrollReveal } from "@/app/components/ScrollReveal";
 import { AnimatedCounter } from "@/app/components/AnimatedCounter";
 import { STATS } from "@/app/lib/constants";
