@@ -49,6 +49,11 @@ export const authConfig: NextAuthConfig = {
         return true;
       }
 
+      // /admin is only a passthrough to dashboard — send guests to a clean login URL
+      if (!isLoggedIn && pathname === "/admin") {
+        return Response.redirect(new URL("/admin/login/", nextUrl));
+      }
+
       if (isAdminRoute || isAdminApi) return isLoggedIn;
       return true;
     },
