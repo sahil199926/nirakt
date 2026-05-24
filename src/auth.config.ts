@@ -21,6 +21,12 @@ declare module "@auth/core/jwt" {
   }
 }
 
+function normalizePathname(pathname: string) {
+  return pathname.length > 1 && pathname.endsWith("/")
+    ? pathname.slice(0, -1)
+    : pathname;
+}
+
 export const authConfig: NextAuthConfig = {
   providers: [],
   pages: {
@@ -29,15 +35,17 @@ export const authConfig: NextAuthConfig = {
   },
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
-      const isLoggedIn  = !!auth?.user;
-      const { pathname } = nextUrl;
+      const isLoggedIn = !!auth?.user;
+      const pathname = normalizePathname(nextUrl.pathname);
 
       const isLoginPage  = pathname === "/admin/login";
       const isAdminRoute = pathname.startsWith("/admin");
       const isAdminApi   = pathname.startsWith("/api/admin");
 
       if (isLoginPage) {
-        if (isLoggedIn) return Response.redirect(new URL("/admin/dashboard", nextUrl));
+        if (isLoggedIn) {
+          return Response.redirect(new URL("/admin/dashboard/", nextUrl));
+        }
         return true;
       }
 

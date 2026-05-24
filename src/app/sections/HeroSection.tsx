@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Search, Calendar, Users, MapPin, ChevronDown } from "lucide-react";
+import { DateInput } from "@/components/ui/date-input";
 import { DESTINATION_TYPES } from "@/app/lib/constants";
 
 export function HeroSection() {
@@ -45,9 +46,9 @@ export function HeroSection() {
           </p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-2xl p-4 sm:p-5 max-w-3xl mx-auto">
-          <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-3">
-            <div className="flex-1 relative">
+        <div className="bg-white rounded-2xl shadow-2xl p-4 sm:p-5 max-w-3xl mx-auto overflow-hidden">
+          <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-3 min-w-0">
+            <div className="flex-1 relative min-w-0">
               <label className="block text-[11px] font-bold text-text-muted uppercase tracking-wider mb-1 ml-1">Destination</label>
               <div className="relative">
                 <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
@@ -61,17 +62,21 @@ export function HeroSection() {
               </div>
             </div>
 
-            <div className="flex-1 relative">
-              <label className="block text-[11px] font-bold text-text-muted uppercase tracking-wider mb-1 ml-1">Travel Date</label>
+            <div className="flex-1 relative min-w-0">
+              <label htmlFor="hero-travel-date" className="block text-[11px] font-bold text-text-muted uppercase tracking-wider mb-1 ml-1">Travel Date</label>
               <div className="relative">
-                <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
-                <input type="date" value={date} onChange={(e) => setDate(e.target.value)} min={new Date().toISOString().split("T")[0]}
-                  className="w-full pl-10 pr-3 py-2.5 bg-sand border border-text-muted rounded-xl text-sm text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted pointer-events-none z-10" />
+                <DateInput
+                  id="hero-travel-date"
+                  value={date}
+                  onChange={setDate}
+                  min={new Date().toISOString().split("T")[0]}
+                  placeholder="Select date"
                 />
               </div>
             </div>
 
-            <div className="sm:w-36">
+            <div className="sm:w-36 min-w-0">
               <label className="block text-[11px] font-bold text-text-muted uppercase tracking-wider mb-1 ml-1">Travelers</label>
               <div className="relative">
                 <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />

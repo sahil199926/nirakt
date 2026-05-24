@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, CheckCircle2, Lock } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { DateInput } from "@/components/ui/date-input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -51,6 +52,7 @@ export function LeadCaptureForm({
     handleSubmit,
     setValue,
     reset,
+    control,
     formState: { errors },
   } = useForm<HeroFormData | BannerFormData | ContactFormData>({
     resolver: zodResolver(schema),
@@ -280,16 +282,25 @@ export function LeadCaptureForm({
           >
             Travel Date *
           </Label>
-          <Input
-            id={`travelDate-${variant}`}
-            type="date"
-            min={new Date().toISOString().split("T")[0]}
-            className={
-              variant === "hero"
-                ? "bg-white/10 border-white/20 text-white mt-1.5 [color-scheme:dark]"
-                : "bg-white border-border text-primary mt-1.5"
-            }
-            {...register("travelDate")}
+          <Controller
+            name="travelDate"
+            control={control}
+            render={({ field }) => (
+              <DateInput
+                id={`travelDate-${variant}`}
+                value={field.value ?? ""}
+                onChange={field.onChange}
+                onBlur={field.onBlur}
+                min={new Date().toISOString().split("T")[0]}
+                placeholder="Select date"
+                displayClassName={cn(
+                  "pl-3 mt-1.5 focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary",
+                  variant === "hero"
+                    ? "bg-white/10 border-white/20 text-white [color-scheme:dark]"
+                    : "bg-white border-border text-primary"
+                )}
+              />
+            )}
           />
           {(errors as Record<string, { message?: string }>).travelDate && (
             <p className="text-xs text-red-400 mt-1">
