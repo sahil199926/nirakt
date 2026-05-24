@@ -15,6 +15,8 @@ export interface IPayment extends Document {
   status: PaymentStatus;
   transactionId?: string;
   notes?: string;
+  proofImage?: string;
+  proofImagePublicId?: string;
   paidAt: Date;
   addedManually: boolean;
   createdAt: Date;
@@ -42,6 +44,8 @@ const PaymentSchema: Schema = new Schema(
     },
     transactionId: { type: String },
     notes: { type: String },
+    proofImage: { type: String },
+    proofImagePublicId: { type: String },
     paidAt: { type: Date, default: Date.now },
     addedManually: { type: Boolean, default: false },
   },

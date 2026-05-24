@@ -4,6 +4,7 @@ import { ChevronLeft } from "lucide-react";
 import { format } from "date-fns";
 import { connectDB } from "@/lib/db/connect";
 import { Lead } from "@/models/Lead";
+import { Payment } from "@/models/Payment";
 import { auth } from "@/auth";
 import { LeadActions } from "./_components/LeadActions";
 
@@ -23,6 +24,7 @@ const SOURCE_LABELS: Record<string, string> = {
   hero_form:       "Hero Form",
   package_enquiry: "Package Enquiry",
   lock_in:         "Lock-In Payment",
+  qr_payment:      "QR Payment",
 };
 
 function Row({ label, value }: { label: string; value?: string | number | boolean | null }) {
@@ -46,6 +48,10 @@ export default async function LeadDetailPage({
   await connectDB();
   const lead = await Lead.findById(id).lean();
   if (!lead) notFound();
+
+  const linkedPayment = await Payment.findOne({ leadId: lead._id })
+    .select("amount method status transactionId proofImage paidAt")
+    .lean();
 
   const isSuperAdmin = session?.user?.role === "super_admin";
 
@@ -99,6 +105,36 @@ export default async function LeadDetailPage({
           <Row label="Transaction ID" value={lead.lockIn.transactionId} />
           <Row label="Paid At"        value={format(new Date(lead.lockIn.paidAt), "dd MMM yyyy, HH:mm")} />
           <Row label="Verified"       value={lead.lockIn.verified ? "Yes" : "No"} />
+        </div>
+      )}
+
+      {/* QR Payment */}
+      {linkedPayment && (
+        <div className="bg-indigo-50 rounded-2xl border border-indigo-200 p-5">
+          <p className="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-3">QR Payment</p>
+          <Row label="Amount"         value={`₹${Number(linkedPayment.amount).toLocaleString("en-IN")}`} />
+          <Row label="Method"         value={String(linkedPayment.method).toUpperCase()} />
+          <Row label="Status"         value={String(linkedPayment.status)} />
+          <Row label="Transaction ID" value={linkedPayment.transactionId} />
+          <Row label="Paid At"        value={format(new Date(linkedPayment.paidAt), "dd MMM yyyy, HH:mm")} />
+          {linkedPayment.proofImage && (
+            <div className="mt-3">
+              <p className="text-xs font-semibold text-gray-500 mb-2">Payment Screenshot</p>
+              <a href={linkedPayment.proofImage} target="_blank" rel="noopener noreferrer" className="block">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={linkedPayment.proofImage}
+                  alt="Payment proof"
+                  className="max-h-64 w-auto rounded-xl border border-indigo-200 hover:opacity-90 transition-opacity"
+                />
+              </a>
+              <a href={linkedPayment.proofImage} target="_blank" rel="noopener noreferrer"
+                className="text-xs text-indigo-600 hover:underline mt-1 inline-block"
+              >
+                Open full size ↗
+              </a>
+            </div>
+          )}
         </div>
       )}
 
