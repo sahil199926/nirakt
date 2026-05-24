@@ -24,15 +24,15 @@ export function StaticHeader() {
 
           <nav className="hidden lg:flex items-center gap-0.5">
             <Link href="/" className="px-4 py-2 text-[13px] font-medium text-text-muted hover:text-primary rounded-full hover:bg-sand transition-colors">Home</Link>
-            <Link href="/#destinations" className="px-4 py-2 text-[13px] font-medium text-text-muted hover:text-primary rounded-full hover:bg-sand transition-colors">Destinations</Link>
+            <Link href="/destinations" className="px-4 py-2 text-[13px] font-medium text-text-muted hover:text-primary rounded-full hover:bg-sand transition-colors">Destinations</Link>
             <Link href="/#services" className="px-4 py-2 text-[13px] font-medium text-text-muted hover:text-primary rounded-full hover:bg-sand transition-colors">Services</Link>
             <Link href="/packages" className="px-4 py-2 text-[13px] font-medium text-text-muted hover:text-primary rounded-full hover:bg-sand transition-colors">Packages</Link>
             <Link href="/about" className="px-4 py-2 text-[13px] font-medium text-text-muted hover:text-primary rounded-full hover:bg-sand transition-colors">About</Link>
-            <Link href="/#contact" className="px-4 py-2 text-[13px] font-medium text-text-muted hover:text-primary rounded-full hover:bg-sand transition-colors">Contact</Link>
+            <Link href="/contact" className="px-4 py-2 text-[13px] font-medium text-text-muted hover:text-primary rounded-full hover:bg-sand transition-colors">Contact</Link>
           </nav>
 
           <div className="flex items-center gap-3">
-            <Link href="/#contact" className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-accent text-white text-sm font-semibold rounded-full hover:brightness-110 transition-all shadow-button">
+            <Link href="/contact" className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-accent text-white text-sm font-semibold rounded-full hover:brightness-110 transition-all shadow-button">
               Plan My Trip
             </Link>
           </div>

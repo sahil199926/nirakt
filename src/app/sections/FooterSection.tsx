@@ -63,10 +63,10 @@ export function FooterSection() {
             <h4 className="text-[11px] font-semibold text-white/60 uppercase tracking-wider mb-4">Explore</h4>
             <ul className="space-y-2">
               <li><Link href="/" className="text-sm text-white/45 hover:text-white transition-colors">Home</Link></li>
-              <li><Link href="/#destinations" className="text-sm text-white/45 hover:text-white transition-colors">Destinations</Link></li>
+              <li><Link href="/destinations" className="text-sm text-white/45 hover:text-white transition-colors">Destinations</Link></li>
               <li><Link href="/#services" className="text-sm text-white/45 hover:text-white transition-colors">Services</Link></li>
               <li><Link href="/packages" className="text-sm text-white/45 hover:text-white transition-colors">All Packages</Link></li>
-              <li><Link href="/#contact" className="text-sm text-white/45 hover:text-white transition-colors">Contact</Link></li>
+              <li><Link href="/contact" className="text-sm text-white/45 hover:text-white transition-colors">Contact</Link></li>
               <li><Link href="/about" className="text-sm text-white/45 hover:text-white transition-colors">About Us</Link></li>
             </ul>
           </div>

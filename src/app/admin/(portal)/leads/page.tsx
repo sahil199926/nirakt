@@ -1,6 +1,8 @@
 import { connectDB } from "@/lib/db/connect";
 import { Lead } from "@/models/Lead";
 import { LeadsTable } from "./_components/LeadsTable";
+import { AddLeadButton } from "./_components/AddLeadButton";
+import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
@@ -57,12 +59,15 @@ export default async function LeadsPage({
           <h1 className="text-2xl font-bold text-gray-900">Leads</h1>
           <p className="text-sm text-gray-500 mt-0.5">{total} leads matching filter</p>
         </div>
-        <a
-          href="/api/admin/leads/export"
-          className="flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-200 text-gray-700 text-sm font-medium rounded-xl hover:bg-gray-50 transition-colors"
-        >
-          Export CSV
-        </a>
+        <div className="flex items-center gap-2">
+          <AddLeadButton />
+          <Link
+            href="/api/admin/leads/export"
+            className="flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-200 text-gray-700 text-sm font-medium rounded-xl hover:bg-gray-50 transition-colors"
+          >
+            Export CSV
+          </Link>
+        </div>
       </div>
 
       <LeadsTable

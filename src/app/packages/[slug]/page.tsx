@@ -12,14 +12,15 @@ import {
   MessageCircle,
   ArrowRight,
   ArrowLeft,
-  Users,
   Calendar,
+  Receipt,
 } from "lucide-react";
 import { connectDB } from "@/lib/db/connect";
 import { Package } from "@/models/Package";
 import { StaticHeader } from "@/app/components/StaticHeader";
 import { FooterSection } from "@/app/sections/FooterSection";
 import { ItineraryAccordion } from "@/components/packages/ItineraryAccordion";
+import { PackageEnquiryCTA, PackageEnquiryCTABar } from "@/components/packages/PackageEnquiryCTA";
 import { BRAND } from "@/app/lib/constants";
 
 export const revalidate = 3600;
@@ -92,6 +93,12 @@ export async function generateMetadata({
 
 function formatPrice(price: number, currency: string) {
   return `${currency === "INR" ? "₹" : currency}${price.toLocaleString("en-IN")}`;
+}
+
+function priceWithGst(price: number, gst: number) {
+  if (!gst) return null;
+  const gstAmount = Math.round((price * gst) / 100);
+  return { total: price + gstAmount, gstAmount, rate: gst };
 }
 
 export default async function PackageDetailPage({
@@ -197,26 +204,15 @@ export default async function PackageDetailPage({
                   {formatPrice(pkg.price, pkg.currency || "INR")}
                   <span className="text-xs font-normal text-text-muted ml-1">per person</span>
                 </p>
+                {pkg.gst > 0 && (
+                  <p className="text-[10px] text-text-muted">+{pkg.gst}% GST applicable</p>
+                )}
               </div>
-              <div className="flex items-center gap-2">
-                <a
-                  href={`https://wa.me/${BRAND.mobile.replace(/\D/g, "")}?text=Hi, I'm interested in ${encodeURIComponent(pkg.title)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-accent text-white text-sm font-semibold rounded-full hover:brightness-110 transition-all shadow-button"
-                >
-                  <MessageCircle className="w-4 h-4" />
-                  <span className="hidden sm:inline">Book on WhatsApp</span>
-                  <span className="sm:hidden">Book</span>
-                </a>
-                <a
-                  href={`tel:${BRAND.mobile.replace(/\s/g, "")}`}
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white text-sm font-medium rounded-full hover:brightness-110 transition-all"
-                >
-                  <Phone className="w-4 h-4" />
-                  <span className="hidden sm:inline">Call Now</span>
-                </a>
-              </div>
+              <PackageEnquiryCTABar
+                packageTitle={pkg.title}
+                packageSlug={pkg.slug}
+                packageId={String(pkg._id)}
+              />
             </div>
           </div>
 
@@ -229,7 +225,8 @@ export default async function PackageDetailPage({
                   {/* Description */}
                   <div className="bg-white rounded-2xl p-6 border border-sand mb-6">
                     <h2 className="text-lg font-bold text-primary mb-3">About This Package</h2>
-                    <p className="text-text-muted leading-relaxed text-sm">{pkg.description}</p>
+                    {/* <p className="text-text-muted leading-relaxed text-sm">{pkg.description}</p> */}
+                    <div className="text-text-muted leading-relaxed text-sm" dangerouslySetInnerHTML={{ __html: pkg.description }}></div>
                   </div>
 
                   {/* Highlights */}
@@ -308,6 +305,29 @@ export default async function PackageDetailPage({
                           {formatPrice(pkg.price, pkg.currency || "INR")}
                         </p>
                         <span className="text-xs text-text-muted">per person</span>
+                        {(() => {
+                          const gstInfo = priceWithGst(pkg.price, pkg.gst ?? 0);
+                          return gstInfo ? (
+                            <div className="mt-2 p-2.5 bg-sand/60 rounded-lg border border-sand">
+                              <div className="flex items-center gap-1.5 text-xs text-text-muted mb-1">
+                                <Receipt className="w-3.5 h-3.5 text-secondary" />
+                                <span>GST Breakdown ({gstInfo.rate}%)</span>
+                              </div>
+                              <div className="flex justify-between text-xs text-text-muted">
+                                <span>Base price</span>
+                                <span>{formatPrice(pkg.price, pkg.currency || "INR")}</span>
+                              </div>
+                              <div className="flex justify-between text-xs text-text-muted">
+                                <span>GST ({gstInfo.rate}%)</span>
+                                <span>+{formatPrice(gstInfo.gstAmount, pkg.currency || "INR")}</span>
+                              </div>
+                              <div className="flex justify-between text-sm font-bold text-primary border-t border-sand mt-1 pt-1">
+                                <span>Total</span>
+                                <span>{formatPrice(gstInfo.total, pkg.currency || "INR")}</span>
+                              </div>
+                            </div>
+                          ) : null;
+                        })()}
                       </div>
 
                       <div className="flex flex-col gap-2 text-sm text-text-muted mb-5 border-t border-sand pt-4">
@@ -329,28 +349,12 @@ export default async function PackageDetailPage({
                         )}
                       </div>
 
-                      <div className="flex flex-col gap-2">
-                        <a
-                          href={`https://wa.me/${BRAND.mobile.replace(/\D/g, "")}?text=Hi, I want to book: ${encodeURIComponent(pkg.title)}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 bg-accent text-white font-semibold rounded-xl hover:brightness-110 transition-all shadow-button"
-                        >
-                          <MessageCircle className="w-4 h-4" /> Book on WhatsApp
-                        </a>
-                        <a
-                          href={`tel:${BRAND.mobile.replace(/\s/g, "")}`}
-                          className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 bg-primary text-white font-semibold rounded-xl hover:brightness-110 transition-all"
-                        >
-                          <Phone className="w-4 h-4" /> Call to Book
-                        </a>
-                        <Link
-                          href="/#contact"
-                          className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 bg-sand text-primary font-medium rounded-xl hover:bg-primary hover:text-white transition-all border border-sand"
-                        >
-                          <Users className="w-4 h-4" /> Enquire Online
-                        </Link>
-                      </div>
+                      <PackageEnquiryCTA
+                        packageTitle={pkg.title}
+                        packageSlug={pkg.slug}
+                        packageId={String(pkg._id)}
+                        destinations={pkg.destinations}
+                      />
                     </div>
 
                     {/* Trust badges */}
@@ -442,6 +446,9 @@ export default async function PackageDetailPage({
               </div>
             </div>
           </section>
+
+          {/* Bottom CTA enquiry note */}
+          <div className="sr-only">Package enquiry CTAs handled via modal</div>
         </main>
         <FooterSection />
       </div>

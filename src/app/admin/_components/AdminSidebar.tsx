@@ -2,15 +2,17 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Plane, LayoutDashboard, Package, Layers, Users, Settings, LogOut } from "lucide-react";
+import { Plane, LayoutDashboard, Package, Layers, Users, Settings, LogOut, MapPin, CreditCard } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { cn } from "@/lib/utils";
 
 const NAV = [
-  { href: "/admin/dashboard", label: "Dashboard",  icon: LayoutDashboard },
-  { href: "/admin/packages",  label: "Packages",   icon: Package },
-  { href: "/admin/services",  label: "Services",   icon: Layers },
-  { href: "/admin/leads",     label: "Leads",      icon: Users },
+  { href: "/admin/dashboard",       label: "Dashboard",       icon: LayoutDashboard },
+  { href: "/admin/packages",        label: "Packages",        icon: Package },
+  { href: "/admin/services",        label: "Services",        icon: Layers },
+  { href: "/admin/location-master", label: "Locations",       icon: MapPin },
+  { href: "/admin/leads",           label: "Leads",           icon: Users },
+  { href: "/admin/payments",        label: "Payments",        icon: CreditCard },
 ];
 
 interface AdminSidebarProps {

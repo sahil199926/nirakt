@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { PackageCard, PackageCardData } from "./PackageCard";
 import { CategorySidebar, Category } from "./CategorySidebar";
-import { SlidersHorizontal, X } from "lucide-react";
+import { SlidersHorizontal, X, MapPin, ChevronDown } from "lucide-react";
 
 interface PackageListClientProps {
   packages: PackageCardData[];
@@ -19,19 +19,34 @@ export function PackageListClient({
   hiddenGems,
 }: PackageListClientProps) {
   const [selectedSlugs, setSelectedSlugs] = useState<string[]>([]);
+  const [destinationFilter, setDestinationFilter] = useState("");
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
-  const filtered =
-    selectedSlugs.length === 0
-      ? packages
-      : packages.filter((pkg) =>
-          pkg.categorySlugs?.some((s: string) => selectedSlugs.includes(s))
-        );
+  const allDestinations = useMemo(() => {
+    const set = new Set<string>();
+    packages.forEach((pkg) => pkg.destinations?.forEach((d) => set.add(d)));
+    return Array.from(set).sort();
+  }, [packages]);
+
+  const filtered = useMemo(() => {
+    let result = packages;
+    if (selectedSlugs.length > 0) {
+      result = result.filter((pkg) =>
+        pkg.categorySlugs?.some((s: string) => selectedSlugs.includes(s))
+      );
+    }
+    if (destinationFilter) {
+      result = result.filter((pkg) =>
+        pkg.destinations?.some((d) => d.toLowerCase() === destinationFilter.toLowerCase())
+      );
+    }
+    return result;
+  }, [packages, selectedSlugs, destinationFilter]);
 
   return (
     <div className="flex flex-col lg:flex-row gap-6 mt-8">
       {/* Mobile filter toggle */}
-      <div className="lg:hidden">
+      <div className="lg:hidden flex items-center gap-2 flex-wrap">
         <button
           onClick={() => setMobileSidebarOpen(true)}
           className="flex items-center gap-2 px-4 py-2.5 bg-white border border-sand rounded-full text-sm font-medium text-primary"
@@ -39,6 +54,22 @@ export function PackageListClient({
           <SlidersHorizontal className="w-4 h-4" />
           Filter{selectedSlugs.length > 0 ? ` (${selectedSlugs.length})` : ""}
         </button>
+        {allDestinations.length > 0 && (
+          <div className="relative">
+            <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted pointer-events-none" />
+            <select
+              value={destinationFilter}
+              onChange={(e) => setDestinationFilter(e.target.value)}
+              className="pl-9 pr-8 py-2.5 bg-white border border-sand rounded-full text-sm text-primary appearance-none focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer"
+            >
+              <option value="">All Destinations</option>
+              {allDestinations.map((d) => (
+                <option key={d} value={d}>{d}</option>
+              ))}
+            </select>
+            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted pointer-events-none" />
+          </div>
+        )}
       </div>
 
       {/* Mobile sidebar overlay */}
@@ -75,7 +106,34 @@ export function PackageListClient({
 
       {/* Package grid */}
       <div className="flex-1">
-        {selectedSlugs.length > 0 && (
+        {/* Desktop destination filter */}
+        {allDestinations.length > 0 && (
+          <div className="hidden lg:flex items-center gap-2 mb-4">
+            <MapPin className="w-4 h-4 text-text-muted" />
+            <span className="text-sm text-text-muted">Filter by destination:</span>
+            <div className="relative">
+              <select
+                value={destinationFilter}
+                onChange={(e) => setDestinationFilter(e.target.value)}
+                className="pl-3 pr-8 py-1.5 bg-sand border border-sand rounded-full text-sm text-primary appearance-none focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer"
+              >
+                <option value="">All</option>
+                {allDestinations.map((d) => (
+                  <option key={d} value={d}>{d}</option>
+                ))}
+              </select>
+              <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-text-muted pointer-events-none" />
+            </div>
+            {destinationFilter && (
+              <button onClick={() => setDestinationFilter("")} className="text-xs text-primary hover:underline flex items-center gap-1">
+                <X className="w-3 h-3" /> Clear
+              </button>
+            )}
+          </div>
+        )}
+
+        {/* Active filters */}
+        {(selectedSlugs.length > 0 || destinationFilter) && (
           <div className="flex flex-wrap gap-2 mb-4">
             {selectedSlugs.map((slug) => (
               <span
@@ -88,6 +146,14 @@ export function PackageListClient({
                 </button>
               </span>
             ))}
+            {destinationFilter && (
+              <span className="flex items-center gap-1.5 px-3 py-1 bg-secondary/10 text-secondary text-xs rounded-full font-medium">
+                <MapPin className="w-3 h-3" /> {destinationFilter}
+                <button onClick={() => setDestinationFilter("")}>
+                  <X className="w-3 h-3" />
+                </button>
+              </span>
+            )}
           </div>
         )}
 

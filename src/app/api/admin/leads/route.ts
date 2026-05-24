@@ -58,3 +58,23 @@ export async function GET(req: NextRequest) {
     stats: { new: statsNew, lockIn: statsLockIn, converted: statsConverted },
   });
 }
+
+export async function POST(req: NextRequest) {
+  const session = await auth();
+  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const body = await req.json();
+  await connectDB();
+
+  if (!body.name || !body.phone) {
+    return NextResponse.json({ error: "Name and phone are required" }, { status: 400 });
+  }
+
+  const lead = await Lead.create({
+    ...body,
+    source: body.source ?? "contact_form",
+    status: body.status ?? "new",
+  });
+
+  return NextResponse.json(lead, { status: 201 });
+}

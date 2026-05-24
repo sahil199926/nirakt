@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
 import { Phone, MessageCircle, ArrowRight, Sparkles } from "lucide-react";
 import { connectDB } from "@/lib/db/connect";
 import { Package } from "@/models/Package";
@@ -143,7 +144,9 @@ export default async function PackagesPage() {
           {/* Packages listing */}
           <section className="py-12 md:py-16 bg-sand/30">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <PackagesFilterClient packages={packages as unknown as PackageCardData[]} />
+              <Suspense fallback={<div className="py-12 text-center text-text-muted text-sm">Loading packages…</div>}>
+                <PackagesFilterClient packages={packages as unknown as PackageCardData[]} />
+              </Suspense>
 
               {packages.length === 0 && (
                 <div className="mt-8 bg-white rounded-2xl p-10 text-center border border-sand">

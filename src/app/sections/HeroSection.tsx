@@ -1,18 +1,24 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Search, Calendar, Users, MapPin, ChevronDown } from "lucide-react";
 import { DESTINATION_TYPES } from "@/app/lib/constants";
 
 export function HeroSection() {
+  const router = useRouter();
   const [destination, setDestination] = useState("");
   const [date, setDate] = useState("");
   const [travelers, setTravelers] = useState("2");
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
+    const params = new URLSearchParams();
+    if (destination) params.set("q", destination);
+    if (date) params.set("date", date);
+    if (travelers && travelers !== "2") params.set("travelers", travelers);
+    router.push(`/packages${params.toString() ? `?${params.toString()}` : ""}`);
   };
 
   return (
@@ -44,21 +50,21 @@ export function HeroSection() {
             <div className="flex-1 relative">
               <label className="block text-[11px] font-bold text-text-muted uppercase tracking-wider mb-1 ml-1">Destination</label>
               <div className="relative">
-                <MapPin className="absolute left-3 top-1/2 -tranprimary-y-1/2 w-4 h-4 text-text-muted" />
+                <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
                 <select value={destination} onChange={(e) => setDestination(e.target.value)}
                   className="w-full pl-10 pr-8 py-2.5 bg-sand border border-text-muted rounded-xl text-sm text-primary appearance-none focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all cursor-pointer"
                 >
                   <option value="">Where do you want to go?</option>
                   {DESTINATION_TYPES.map((type) => <option key={type} value={type}>{type}</option>)}
                 </select>
-                <ChevronDown className="absolute right-3 top-1/2 -tranprimary-y-1/2 w-4 h-4 text-text-muted pointer-events-none" />
+                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted pointer-events-none" />
               </div>
             </div>
 
             <div className="flex-1 relative">
               <label className="block text-[11px] font-bold text-text-muted uppercase tracking-wider mb-1 ml-1">Travel Date</label>
               <div className="relative">
-                <Calendar className="absolute left-3 top-1/2 -tranprimary-y-1/2 w-4 h-4 text-text-muted" />
+                <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
                 <input type="date" value={date} onChange={(e) => setDate(e.target.value)} min={new Date().toISOString().split("T")[0]}
                   className="w-full pl-10 pr-3 py-2.5 bg-sand border border-text-muted rounded-xl text-sm text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                 />
@@ -68,13 +74,13 @@ export function HeroSection() {
             <div className="sm:w-36">
               <label className="block text-[11px] font-bold text-text-muted uppercase tracking-wider mb-1 ml-1">Travelers</label>
               <div className="relative">
-                <Users className="absolute left-3 top-1/2 -tranprimary-y-1/2 w-4 h-4 text-text-muted" />
+                <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
                 <select value={travelers} onChange={(e) => setTravelers(e.target.value)}
                   className="w-full pl-10 pr-8 py-2.5 bg-sand border border-text-muted rounded-xl text-sm text-primary appearance-none focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all cursor-pointer"
                 >
                   {[1,2,3,4,5,6,7,8].map((n) => <option key={n} value={n}>{n} {n===1?"Person":"People"}</option>)}
                 </select>
-                <ChevronDown className="absolute right-3 top-1/2 -tranprimary-y-1/2 w-4 h-4 text-text-muted pointer-events-none" />
+                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted pointer-events-none" />
               </div>
             </div>
 

@@ -1,6 +1,6 @@
-import { auth }     from "@/auth";
+import { auth } from "@/auth";
 import { connectDB } from "@/lib/db/connect";
-import { Package }   from "@/models/Package";
+import { Package } from "@/models/Package";
 import { getStorage } from "@/lib/storage";
 import { revalidatePaths } from "@/lib/revalidate";
 import { NextRequest, NextResponse } from "next/server";
