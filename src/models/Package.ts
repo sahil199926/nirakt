@@ -1,5 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 
+export type GstRate = 0 | 5 | 8 | 18;
+
 export interface IPackage extends Document {
   title: string;
   slug: string;
@@ -7,10 +9,12 @@ export interface IPackage extends Document {
   shortDescription?: string;
   price: number;
   currency: string;
+  gst: GstRate;
   duration: string;
   durationDays?: number;
   images: string[];
   coverImage: string;
+  isInternational: boolean;
   destinations: string[];
   categories: string[];
   categorySlugs: string[];
@@ -55,6 +59,8 @@ const PackageSchema: Schema = new Schema(
     durationDays: { type: Number },
     images: { type: [String], default: [] },
     coverImage: { type: String, required: true },
+    isInternational: { type: Boolean, default: false },
+    gst: { type: Number, enum: [0, 5, 8, 18], default: 0 },
     destinations: { type: [String], default: [] },
     categories: { type: [String], default: [] },
     categorySlugs: { type: [String], default: [], index: true },

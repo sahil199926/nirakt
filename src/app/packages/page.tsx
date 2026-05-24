@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
 import { Phone, MessageCircle, ArrowRight, Sparkles } from "lucide-react";
 import { connectDB } from "@/lib/db/connect";
 import { Package } from "@/models/Package";
@@ -143,7 +144,9 @@ export default async function PackagesPage() {
           {/* Packages listing */}
           <section className="py-12 md:py-16 bg-sand/30">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <PackagesFilterClient packages={packages as unknown as PackageCardData[]} />
+              <Suspense fallback={<div className="py-12 text-center text-text-muted text-sm">Loading packages…</div>}>
+                <PackagesFilterClient packages={packages as unknown as PackageCardData[]} />
+              </Suspense>
 
               {packages.length === 0 && (
                 <div className="mt-8 bg-white rounded-2xl p-10 text-center border border-sand">
@@ -183,10 +186,10 @@ export default async function PackagesPage() {
           <section className="py-12 md:py-16 bg-gradient-to-r from-primary to-secondary">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
               <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
-                Can't Find What You're Looking For?
+                Can&apos;t Find What You&apos;re Looking For?
               </h2>
               <p className="text-white/70 text-sm mb-8 max-w-lg mx-auto leading-relaxed">
-                We specialize in custom-built itineraries. Tell us your dream trip and we'll craft the perfect package within 24 hours.
+                We specialize in custom-built itineraries. Tell us your dream trip and we&apos;ll craft the perfect package within 24 hours.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
                 <a

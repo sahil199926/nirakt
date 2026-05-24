@@ -46,11 +46,11 @@ export const EMAILJS_CONFIG = {
 
 export const NAV_LINKS = [
   { label: "Home", href: "#home" },
-  { label: "Destinations", href: "#destinations" },
+  { label: "Destinations", href: "/destinations" },
   { label: "Services", href: "#services" },
   { label: "Packages", href: "/packages" },
   { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
+  { label: "Contact", href: "/contact" },
 ];
 
 // Trending destinations - capsule carousel
@@ -338,6 +338,16 @@ export const BUDGET_RANGES = [
 ];
 
 // Footer tag pills
+export const INDIA_STATES = [
+  "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh",
+  "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka",
+  "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram",
+  "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu",
+  "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal",
+  "Andaman and Nicobar Islands", "Chandigarh", "Dadra and Nagar Haveli and Daman & Diu",
+  "Delhi", "Jammu & Kashmir", "Ladakh", "Lakshadweep", "Puducherry",
+];
+
 export const FOOTER_TAGS = [
   "Kerala tour packages", "Bali tour packages", "Dubai tour packages",
   "Maldives tour packages", "Thailand tour packages", "Singapore tour packages",
