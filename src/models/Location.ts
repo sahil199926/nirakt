@@ -7,6 +7,7 @@ export interface ILocation extends Document {
   imagePublicId?: string;
   isInternational: boolean;
   isTrending: boolean;
+  showOnDestinationPage: boolean;
   isActive: boolean;
   metaTitle?: string;
   metaDescription?: string;
@@ -22,6 +23,7 @@ const LocationSchema: Schema = new Schema(
     imagePublicId: { type: String },
     isInternational: { type: Boolean, default: false },
     isTrending: { type: Boolean, default: false, index: true },
+    showOnDestinationPage: { type: Boolean, default: false, index: true },
     isActive: { type: Boolean, default: true },
     metaTitle: { type: String },
     metaDescription: { type: String },

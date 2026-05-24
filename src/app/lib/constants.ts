@@ -107,14 +107,6 @@ export const SPECIALS = [
     size: "normal",
     href: "#contact",
   },
-  {
-    title: "Looking for Flights?",
-    subtitle: "Find Your Best Fare Here!",
-    cta: "Search Flights",
-    image: "/images/destinations/paris.jpg",
-    size: "wide",
-    href: "#contact",
-  },
 ];
 
 export const WHY_CHOOSE_CARDS = [

@@ -32,6 +32,7 @@ export interface IPackage extends Document {
   reviewCount?: number;
   isActive: boolean;
   isFeatured: boolean;
+  isSpecial: boolean;
   metaTitle?: string;
   metaDescription?: string;
   createdAt: Date;
@@ -74,6 +75,7 @@ const PackageSchema: Schema = new Schema(
     reviewCount: { type: Number, default: 0 },
     isActive: { type: Boolean, default: true },
     isFeatured: { type: Boolean, default: false },
+    isSpecial: { type: Boolean, default: false },
     metaTitle: { type: String },
     metaDescription: { type: String },
   },

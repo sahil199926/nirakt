@@ -20,8 +20,8 @@ export const metadata: Metadata = {
 async function getLocations() {
   try {
     await connectDB();
-    const locations = await Location.find({ isActive: true })
-      .sort({ isTrending: -1, name: 1 })
+    const locations = await Location.find({ isActive: true, showOnDestinationPage: true })
+      .sort({ name: 1 })
       .lean();
     return locations;
   } catch {

@@ -37,6 +37,7 @@ export default async function EditPackagePage({
     itinerary:          pkg.itinerary,
     isActive:           pkg.isActive,
     isFeatured:         pkg.isFeatured,
+    isSpecial:          pkg.isSpecial ?? false,
     metaTitle:          pkg.metaTitle ?? "",
     metaDescription:    pkg.metaDescription ?? "",
     coverImage:         pkg.coverImage,

@@ -2,13 +2,23 @@
 
 import { useState, useCallback, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { TRENDING_DESTINATIONS } from "@/app/lib/constants";
 import { cn } from "@/lib/utils";
 
-export function TrendingDestinations() {
+export interface TrendingDest {
+  name: string;
+  image: string;
+}
+
+interface TrendingDestinationsProps {
+  domestic: TrendingDest[];
+  international: TrendingDest[];
+}
+
+export function TrendingDestinations({ domestic, international }: TrendingDestinationsProps) {
   const [activeTab, setActiveTab] = useState<"domestic" | "international">("domestic");
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -28,7 +38,9 @@ export function TrendingDestinations() {
     onSelect();
   }, [emblaApi, onSelect]);
 
-  const destinations = TRENDING_DESTINATIONS[activeTab];
+  const destinations = activeTab === "domestic" ? domestic : international;
+
+  if (domestic.length === 0 && international.length === 0) return null;
 
   return (
     <section id="destinations" className="py-14 md:py-18 bg-white">
@@ -76,12 +88,8 @@ export function TrendingDestinations() {
             <div className="flex gap-4">
               {destinations.map((dest) => (
                 <div key={dest.name} className="flex-[0_0_160px] md:flex-[0_0_180px] min-w-0">
-                  <a
-                    href="#contact"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
-                    }}
+                  <Link
+                    href={`/packages?destination=${encodeURIComponent(dest.name)}`}
                     className="group block"
                   >
                     <div className="relative h-[220px] md:h-[260px] rounded-[40px] overflow-hidden shadow-card group-hover:shadow-card-hover transition-all duration-300">
@@ -99,7 +107,7 @@ export function TrendingDestinations() {
                         </span>
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 </div>
               ))}
             </div>
