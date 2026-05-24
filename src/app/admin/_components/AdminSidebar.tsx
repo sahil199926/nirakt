@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Plane, LayoutDashboard, Package, Layers, Users, Settings, LogOut, MapPin, CreditCard } from "lucide-react";
+import { Plane, LayoutDashboard, Package, Layers, Users, Settings, LogOut, MapPin, CreditCard, QrCode } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { cn } from "@/lib/utils";
 
@@ -13,6 +13,7 @@ const NAV = [
   { href: "/admin/location-master", label: "Locations",       icon: MapPin },
   { href: "/admin/leads",           label: "Leads",           icon: Users },
   { href: "/admin/payments",        label: "Payments",        icon: CreditCard },
+  { href: "/admin/qr-codes",        label: "QR Codes",        icon: QrCode },
 ];
 
 interface AdminSidebarProps {

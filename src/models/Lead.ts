@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document, Types } from "mongoose";
 
-export type LeadSource = "contact_form" | "cta_banner" | "hero_form" | "package_enquiry" | "lock_in";
+export type LeadSource = "contact_form" | "cta_banner" | "hero_form" | "package_enquiry" | "lock_in" | "qr_payment";
 export type LeadStatus = "new" | "contacted" | "qualified" | "converted" | "lost";
 
 export interface ILead extends Document {
@@ -59,7 +59,7 @@ const LeadSchema: Schema = new Schema(
 
     source: {
       type: String,
-      enum: ["contact_form", "cta_banner", "hero_form", "package_enquiry", "lock_in"] satisfies LeadSource[],
+      enum: ["contact_form", "cta_banner", "hero_form", "package_enquiry", "lock_in", "qr_payment"] satisfies LeadSource[],
       required: true,
       index: true,
     },
