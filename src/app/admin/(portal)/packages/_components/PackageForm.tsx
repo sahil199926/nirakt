@@ -32,6 +32,7 @@ interface PackageFormValues {
   itinerary: ItineraryDay[];
   isActive: boolean;
   isFeatured: boolean;
+  isSpecial: boolean;
   metaTitle: string;
   metaDescription: string;
   coverImage: string;
@@ -106,6 +107,7 @@ export function PackageForm({ defaultValues, packageId }: PackageFormProps) {
       itinerary: [],
       isActive: true,
       isFeatured: false,
+      isSpecial: false,
       metaTitle: "",
       metaDescription: "",
       coverImage: "",
@@ -426,6 +428,10 @@ export function PackageForm({ defaultValues, packageId }: PackageFormProps) {
           <label className="flex items-center gap-2 cursor-pointer">
             <input {...register("isFeatured")} type="checkbox" className="w-4 h-4 accent-primary" />
             <span className="text-sm font-medium text-gray-700">Featured (show on homepage)</span>
+          </label>
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input {...register("isSpecial")} type="checkbox" className="w-4 h-4 accent-primary" />
+            <span className="text-sm font-medium text-gray-700">Special (show in Specials section)</span>
           </label>
         </div>
       </Section>

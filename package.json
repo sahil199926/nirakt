@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "seed:services": "npx tsx scripts/add-service-to-db.ts"
+    "seed:services": "npx tsx scripts/add-service-to-db.ts",
+    "seed:locations": "npx tsx scripts/seed-locations.ts",
+    "seed:packages": "npx tsx scripts/seed-packages.ts",
+    "seed:all": "npm run seed:services && npm run seed:locations && npm run seed:packages"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.1",

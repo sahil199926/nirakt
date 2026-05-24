@@ -12,6 +12,7 @@ interface LocationFormValues {
   slug: string;
   isInternational: boolean;
   isTrending: boolean;
+  showOnDestinationPage: boolean;
   isActive: boolean;
   metaTitle: string;
   metaDescription: string;
@@ -57,6 +58,7 @@ export function LocationForm({ defaultValues, locationId }: LocationFormProps) {
       slug: "",
       isInternational: false,
       isTrending: false,
+      showOnDestinationPage: false,
       isActive: true,
       metaTitle: "",
       metaDescription: "",
@@ -164,7 +166,11 @@ export function LocationForm({ defaultValues, locationId }: LocationFormProps) {
         <div className="flex flex-wrap items-center gap-6">
           <label className="flex items-center gap-2 cursor-pointer">
             <input {...register("isTrending")} type="checkbox" className="w-4 h-4 accent-primary" />
-            <span className="text-sm font-medium text-gray-700">Trending (show on Destinations page)</span>
+            <span className="text-sm font-medium text-gray-700">Trending (show on Home page carousel)</span>
+          </label>
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input {...register("showOnDestinationPage")} type="checkbox" className="w-4 h-4 accent-primary" />
+            <span className="text-sm font-medium text-gray-700">Show on Destinations page</span>
           </label>
           <label className="flex items-center gap-2 cursor-pointer">
             <input {...register("isActive")} type="checkbox" className="w-4 h-4 accent-primary" />
