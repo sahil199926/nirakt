@@ -2,7 +2,9 @@ import { auth }     from "@/auth";
 import { connectDB } from "@/lib/db/connect";
 import { Service }   from "@/models/Service";
 import { Package }   from "@/models/Package";
+import { MAX_FEATURED_HOME_SERVICES } from "@/lib/limits";
 import { revalidatePaths } from "@/lib/revalidate";
+import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
 type Ctx = { params: Promise<{ id: string }> };
@@ -29,6 +31,21 @@ export async function PUT(req: NextRequest, { params }: Ctx) {
   const existing = await Service.findById(id).lean();
   if (!existing) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
+  if (body.isFeaturedHome && !existing.isFeaturedHome) {
+    const featuredCount = await Service.countDocuments({
+      isFeaturedHome: true,
+      _id: { $ne: id },
+    });
+    if (featuredCount >= MAX_FEATURED_HOME_SERVICES) {
+      return NextResponse.json(
+        {
+          error: `You can feature at most ${MAX_FEATURED_HOME_SERVICES} services on the home page. Unfeature another service first.`,
+        },
+        { status: 400 }
+      );
+    }
+  }
+
   // If category slugs changed, update referencing packages
   if (body.categories) {
     const oldSlugs = new Map(
@@ -47,7 +64,12 @@ export async function PUT(req: NextRequest, { params }: Ctx) {
   }
 
   const service = await Service.findByIdAndUpdate(id, { $set: body }, { new: true });
-  await revalidatePaths([`/services/${service?.slug}`]);
+
+  revalidatePath("/");
+  revalidatePath("/services");
+  if (service?.slug) revalidatePath(`/services/${service.slug}`);
+  await revalidatePaths(["/", "/services", `/services/${service?.slug}`]);
+
   return NextResponse.json(service);
 }
 

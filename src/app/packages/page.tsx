@@ -113,7 +113,7 @@ export default async function PackagesPage() {
                   <Phone className="w-4 h-4" /> {BRAND.mobile}
                 </a>
                 <Link
-                  href="/#contact"
+                  href="/contact"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-white text-primary font-semibold rounded-full hover:bg-white/90 transition-all"
                 >
                   Free Consultation <ArrowRight className="w-4 h-4" />

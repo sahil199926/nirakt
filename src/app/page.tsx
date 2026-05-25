@@ -1,12 +1,14 @@
 import { connectDB } from "@/lib/db/connect";
 import { Location } from "@/models/Location";
 import { Package } from "@/models/Package";
+import { Service } from "@/models/Service";
+import { MAX_FEATURED_HOME_SERVICES } from "@/lib/limits";
 import { Navbar } from "@/app/components/Navbar";
 import { FloatingCTA } from "@/app/components/FloatingCTA";
 import { HeroSection } from "@/app/sections/HeroSection";
 import { TrendingDestinations, type TrendingDest } from "@/app/sections/TrendingDestinations";
 import { SpecialsSection, type SpecialPackage } from "@/app/sections/SpecialsSection";
-import { ServicesSection } from "@/app/sections/ServicesSection";
+import { ServicesSection, type FeaturedService } from "@/app/sections/ServicesSection";
 import { FeaturedTripsSection, type FeaturedPackage } from "@/app/sections/FeaturedTripsSection";
 import { WhyChooseSection } from "@/app/sections/WhyChooseSection";
 // import { ProcessSection } from "@/app/sections/ProcessSection";
@@ -23,7 +25,7 @@ async function getHomeData() {
   try {
     await connectDB();
 
-    const [trendingLocations, featuredPackages, specialPackages] = await Promise.all([
+    const [trendingLocations, featuredPackages, specialPackages, featuredServices] = await Promise.all([
       Location.find({ isTrending: true, isActive: true }).sort({ name: 1 }).lean(),
       Package.find({ isFeatured: true, isActive: true })
         .sort({ createdAt: -1 })
@@ -35,16 +37,21 @@ async function getHomeData() {
         .limit(4)
         .select("title slug shortDescription price coverImage")
         .lean(),
+      Service.find({ isFeaturedHome: true })
+        .sort({ featuredHomeOrder: 1, title: 1 })
+        .limit(MAX_FEATURED_HOME_SERVICES)
+        .select("slug title tagline description image")
+        .lean(),
     ]);
 
-    return { trendingLocations, featuredPackages, specialPackages };
+    return { trendingLocations, featuredPackages, specialPackages, featuredServices };
   } catch {
-    return { trendingLocations: [], featuredPackages: [], specialPackages: [] };
+    return { trendingLocations: [], featuredPackages: [], specialPackages: [], featuredServices: [] };
   }
 }
 
 export default async function Home() {
-  const { trendingLocations, featuredPackages, specialPackages } = await getHomeData();
+  const { trendingLocations, featuredPackages, specialPackages, featuredServices } = await getHomeData();
 
   const domestic: TrendingDest[] = trendingLocations
     .filter((l) => !l.isInternational && l.image)
@@ -76,6 +83,14 @@ export default async function Home() {
     coverImage: p.coverImage,
   }));
 
+  const services: FeaturedService[] = featuredServices.map((s) => ({
+    slug: s.slug,
+    title: s.title,
+    tagline: s.tagline,
+    description: s.description,
+    image: s.image,
+  }));
+
   return (
     <>
       <Navbar />
@@ -83,7 +98,7 @@ export default async function Home() {
         <HeroSection />
         <TrendingDestinations domestic={domestic} international={international} />
         <SpecialsSection packages={specials} />
-        <ServicesSection />
+        <ServicesSection services={services} />
         <FeaturedTripsSection packages={featured} />
         <WhyChooseSection />
         {/* <ProcessSection /> */}

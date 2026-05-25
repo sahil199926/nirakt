@@ -44,6 +44,8 @@ export default async function EditServicePage({
     categories:          svc.categories,
     popularDestinations: svc.popularDestinations,
     hiddenGems:          svc.hiddenGems ?? [],
+    isFeaturedHome:      svc.isFeaturedHome ?? false,
+    featuredHomeOrder:   svc.featuredHomeOrder ?? 100,
     metaTitle:           svc.metaTitle ?? "",
     metaDescription:     svc.metaDescription ?? "",
   };

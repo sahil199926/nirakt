@@ -32,7 +32,8 @@ export const BRAND = {
   address:
     "1/9, Ground Floor, Indira Vikas, Opposite Nirankari School, Dr. Mukherjee Nagar, Delhi-110009",
   social: {
-    instagram: "https://www.instagram.com/nirakt_travels?igsh=MWt5NW8zczJsd3Z2aw==",
+    instagram:
+      "https://www.instagram.com/nirakt_travels?igsh=MWt5NW8zczJsd3Z2aw==",
     facebook: "https://www.facebook.com/share/1EaRvDpSGv/?mibextid=wwXIfr",
     youtube: "https://youtube.com/@nirakttravelsofficial?si=w6TJzZbnBNXRMn_A",
   },
@@ -47,10 +48,11 @@ export const EMAILJS_CONFIG = {
 export const NAV_LINKS = [
   { label: "Home", href: "#home" },
   { label: "Destinations", href: "/destinations" },
-  { label: "Services", href: "#services" },
+  { label: "Services", href: "/services" },
   { label: "Packages", href: "/packages" },
-  { label: "About", href: "#about" },
+  { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
+  { label: "Pay & Book", href: "/pay" },
 ];
 
 // Trending destinations - capsule carousel
@@ -152,35 +154,40 @@ export const SERVICE_CARDS = [
   {
     icon: Heart,
     title: "Couple's Celebration & Pre-Wedding",
-    description: "Honeymoon tours, anniversary getaways, luxury couple trips, and cinematic pre-wedding shoots.",
+    description:
+      "Honeymoon tours, anniversary getaways, luxury couple trips, and cinematic pre-wedding shoots.",
     image: "/images/services/couples-celebration.jpg",
     href: "/services/couples-celebration",
   },
   {
     icon: Building2,
     title: "Corporate & Group Travel",
-    description: "MICE events, team-building adventures, incentive trips, and educational institutional tours.",
+    description:
+      "MICE events, team-building adventures, incentive trips, and educational institutional tours.",
     image: "/images/services/corporate-travel.jpg",
     href: "/services/corporate-group-travel",
   },
   {
     icon: Gift,
     title: "Proposal & Surprise Planning",
-    description: "Private yacht dinners, rooftop setups, drone coverage, and cinematic surprise events.",
+    description:
+      "Private yacht dinners, rooftop setups, drone coverage, and cinematic surprise events.",
     image: "/images/services/proposal-planning.jpg",
     href: "/services/proposal-surprise-planning",
   },
   {
     icon: Plane,
     title: "Leisure & International Travel",
-    description: "Family holidays, beach escapes, Southeast Asia tours, Europe packages & customized itineraries.",
+    description:
+      "Family holidays, beach escapes, Southeast Asia tours, Europe packages & customized itineraries.",
     image: "/images/services/leisure-vacation.jpg",
     href: "/services/leisure-vacation-international",
   },
   {
     icon: Gem,
     title: "Destination Wedding & Events",
-    description: "Palace weddings, beach weddings, luxury resort celebrations & grand destination events.",
+    description:
+      "Palace weddings, beach weddings, luxury resort celebrations & grand destination events.",
     image: "/images/services/destination-wedding.jpg",
     href: "/services/destination-wedding-events",
   },
@@ -191,7 +198,8 @@ export const FEATURED_TRIPS = [
     image: "/images/destinations/kedarnath.jpg",
     title: "Kedarnath-Badrinath Yatra",
     duration: "12 Days",
-    description: "Experience divine bliss in the Himalayas. Includes helicopter option, VIP darshan, comfortable stays & guided rituals.",
+    description:
+      "Experience divine bliss in the Himalayas. Includes helicopter option, VIP darshan, comfortable stays & guided rituals.",
     price: "₹24,999",
     badge: "Most Popular",
     rating: 4.9,
@@ -201,7 +209,8 @@ export const FEATURED_TRIPS = [
     image: "/images/destinations/kerala.jpg",
     title: "Kerala Romance Package",
     duration: "7 Days",
-    description: "Backwaters, tea gardens, beach sunsets & candlelight dinners. Perfect for honeymooners & couples.",
+    description:
+      "Backwaters, tea gardens, beach sunsets & candlelight dinners. Perfect for honeymooners & couples.",
     price: "₹18,499",
     badge: "Best Seller",
     rating: 4.8,
@@ -211,7 +220,8 @@ export const FEATURED_TRIPS = [
     image: "/images/destinations/bali.jpg",
     title: "Bali Paradise Escape",
     duration: "6 Days",
-    description: "Ubud rice terraces, temple tours, beach clubs & luxury villa stay. Visa assistance included.",
+    description:
+      "Ubud rice terraces, temple tours, beach clubs & luxury villa stay. Visa assistance included.",
     price: "₹34,999",
     badge: "Trending",
     rating: 4.9,
@@ -221,7 +231,8 @@ export const FEATURED_TRIPS = [
     image: "/images/destinations/maldives.jpg",
     title: "Maldives Island Hopping",
     duration: "5 Days",
-    description: "Crystal clear waters, overwater villas, snorkeling & sunset cruises in paradise.",
+    description:
+      "Crystal clear waters, overwater villas, snorkeling & sunset cruises in paradise.",
     price: "₹49,999",
     badge: "Luxury",
     rating: 4.9,
@@ -231,35 +242,40 @@ export const FEATURED_TRIPS = [
 
 export const TESTIMONIALS = [
   {
-    quote: "Our Kedarnath yatra was flawlessly organized. The VIP darshan, comfortable stays, and our guide's knowledge made this spiritual journey truly divine.",
+    quote:
+      "Our Kedarnath yatra was flawlessly organized. The VIP darshan, comfortable stays, and our guide's knowledge made this spiritual journey truly divine.",
     name: "Rahul & Family",
     location: "Delhi",
     tripType: "Spiritual Yatra",
     rating: 5,
   },
   {
-    quote: "Nirakt planned our honeymoon to Kerala and surprised us with a private candlelight dinner on the backwaters. It was magical!",
+    quote:
+      "Nirakt planned our honeymoon to Kerala and surprised us with a private candlelight dinner on the backwaters. It was magical!",
     name: "Priya & Arjun",
     location: "Mumbai",
     tripType: "Honeymoon",
     rating: 5,
   },
   {
-    quote: "The Bali trip exceeded all expectations — from the villa stay to the Instagram-worthy spots they recommended. Hassle-free and memorable!",
+    quote:
+      "The Bali trip exceeded all expectations — from the villa stay to the Instagram-worthy spots they recommended. Hassle-free and memorable!",
     name: "Sneha K.",
     location: "Bangalore",
     tripType: "International",
     rating: 5,
   },
   {
-    quote: "Our corporate offsite in Manali was perfectly executed. 45 people, zero hiccups. The team bonding activities were a hit!",
+    quote:
+      "Our corporate offsite in Manali was perfectly executed. 45 people, zero hiccups. The team bonding activities were a hit!",
     name: "Vikram S.",
     location: "HR Head, TechCorp",
     tripType: "Corporate",
     rating: 5,
   },
   {
-    quote: "From proposal planning in Udaipur to the palace wedding — Nirakt made every moment picture perfect. Forever grateful!",
+    quote:
+      "From proposal planning in Udaipur to the palace wedding — Nirakt made every moment picture perfect. Forever grateful!",
     name: "Ananya & Rohan",
     location: "Jaipur",
     tripType: "Wedding",
@@ -272,19 +288,22 @@ export const PROCESS_STEPS = [
     number: "01",
     icon: MessageCircle,
     title: "Tell Us Your Dream",
-    description: "Share your destination, dates, budget & preferences. Call us, WhatsApp, or fill the form.",
+    description:
+      "Share your destination, dates, budget & preferences. Call us, WhatsApp, or fill the form.",
   },
   {
     number: "02",
     icon: Mail,
     title: "We Craft Your Itinerary",
-    description: "Our experts design a personalized plan with handpicked stays, transfers & activities within 24 hours.",
+    description:
+      "Our experts design a personalized plan with handpicked stays, transfers & activities within 24 hours.",
   },
   {
     number: "03",
     icon: Globe,
     title: "Pack Your Bags",
-    description: "Review, confirm & pay securely. We handle bookings, permits & all logistics. Just show up & enjoy!",
+    description:
+      "Review, confirm & pay securely. We handle bookings, permits & all logistics. Just show up & enjoy!",
   },
 ];
 
@@ -296,11 +315,31 @@ export const STATS = [
 ];
 
 export const CONTACT_INFO = [
-  { icon: Phone, label: "Phone", value: BRAND.phone, href: `tel:${BRAND.phone.replace(/\s/g, "")}` },
-  { icon: Phone, label: "Mobile", value: BRAND.mobile, href: `tel:${BRAND.mobile.replace(/\s/g, "")}` },
-  { icon: Mail, label: "Email", value: BRAND.email, href: `mailto:${BRAND.email}` },
+  {
+    icon: Phone,
+    label: "Phone",
+    value: BRAND.phone,
+    href: `tel:${BRAND.phone.replace(/\s/g, "")}`,
+  },
+  {
+    icon: Phone,
+    label: "Mobile",
+    value: BRAND.mobile,
+    href: `tel:${BRAND.mobile.replace(/\s/g, "")}`,
+  },
+  {
+    icon: Mail,
+    label: "Email",
+    value: BRAND.email,
+    href: `mailto:${BRAND.email}`,
+  },
   { icon: MapPin, label: "Address", value: BRAND.address },
-  { icon: MessageCircle, label: "WhatsApp", value: BRAND.mobile, href: `https://wa.me/${BRAND.mobile.replace(/\D/g, "")}` },
+  {
+    icon: MessageCircle,
+    label: "WhatsApp",
+    value: BRAND.mobile,
+    href: `https://wa.me/${BRAND.mobile.replace(/\D/g, "")}`,
+  },
 ];
 
 export const SOCIAL_LINKS = [
@@ -331,19 +370,58 @@ export const BUDGET_RANGES = [
 
 // Footer tag pills
 export const INDIA_STATES = [
-  "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh",
-  "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka",
-  "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram",
-  "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu",
-  "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal",
-  "Andaman and Nicobar Islands", "Chandigarh", "Dadra and Nagar Haveli and Daman & Diu",
-  "Delhi", "Jammu & Kashmir", "Ladakh", "Lakshadweep", "Puducherry",
+  "Andhra Pradesh",
+  "Arunachal Pradesh",
+  "Assam",
+  "Bihar",
+  "Chhattisgarh",
+  "Goa",
+  "Gujarat",
+  "Haryana",
+  "Himachal Pradesh",
+  "Jharkhand",
+  "Karnataka",
+  "Kerala",
+  "Madhya Pradesh",
+  "Maharashtra",
+  "Manipur",
+  "Meghalaya",
+  "Mizoram",
+  "Nagaland",
+  "Odisha",
+  "Punjab",
+  "Rajasthan",
+  "Sikkim",
+  "Tamil Nadu",
+  "Telangana",
+  "Tripura",
+  "Uttar Pradesh",
+  "Uttarakhand",
+  "West Bengal",
+  "Andaman and Nicobar Islands",
+  "Chandigarh",
+  "Dadra and Nagar Haveli and Daman & Diu",
+  "Delhi",
+  "Jammu & Kashmir",
+  "Ladakh",
+  "Lakshadweep",
+  "Puducherry",
 ];
 
 export const FOOTER_TAGS = [
-  "Kerala tour packages", "Bali tour packages", "Dubai tour packages",
-  "Maldives tour packages", "Thailand tour packages", "Singapore tour packages",
-  "Europe tour packages", "Himachal tour packages", "Goa tour packages",
-  "Kedarnath Yatra", "Chardham Yatra", "Honeymoon packages",
-  "Corporate tours", "Destination weddings", "Trekking adventures",
+  "Kerala tour packages",
+  "Bali tour packages",
+  "Dubai tour packages",
+  "Maldives tour packages",
+  "Thailand tour packages",
+  "Singapore tour packages",
+  "Europe tour packages",
+  "Himachal tour packages",
+  "Goa tour packages",
+  "Kedarnath Yatra",
+  "Chardham Yatra",
+  "Honeymoon packages",
+  "Corporate tours",
+  "Destination weddings",
+  "Trekking adventures",
 ];
