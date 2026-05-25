@@ -2,7 +2,7 @@ import { connectDB } from "@/lib/db/connect";
 import { Service, type IServiceCategory } from "@/models/Service";
 import { auth } from "@/auth";
 import Link from "next/link";
-import { Plus, Pencil } from "lucide-react";
+import { Plus, Pencil, Star } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -43,9 +43,14 @@ export default async function ServicesPage() {
           services.map((svc) => (
             <div key={String(svc._id)} className="bg-white rounded-2xl border border-gray-200 p-5 flex items-start justify-between gap-4">
               <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-1">
+                <div className="flex items-center flex-wrap gap-2 mb-1">
                   <h2 className="text-base font-bold text-gray-900">{svc.title}</h2>
                   <span className="text-xs text-gray-400 font-mono">/{svc.slug}</span>
+                  {svc.isFeaturedHome && (
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-amber-50 text-amber-700 text-[10px] font-semibold rounded-full border border-amber-200">
+                      <Star className="w-3 h-3 fill-amber-400 text-amber-400" /> Home featured
+                    </span>
+                  )}
                 </div>
                 <p className="text-sm text-gray-500 line-clamp-1">{svc.tagline}</p>
                 {svc.categories.length > 0 && (

@@ -15,6 +15,8 @@ export interface IService extends Document {
   categories: IServiceCategory[];
   popularDestinations: string[];
   hiddenGems?: string[];
+  isFeaturedHome: boolean;
+  featuredHomeOrder: number;
   metaTitle?: string;
   metaDescription?: string;
   createdAt: Date;
@@ -40,11 +42,17 @@ const ServiceSchema: Schema = new Schema(
     categories: { type: [ServiceCategorySchema], default: [] },
     popularDestinations: { type: [String], default: [] },
     hiddenGems: { type: [String], default: [] },
+    isFeaturedHome: { type: Boolean, default: false, index: true },
+    featuredHomeOrder: { type: Number, default: 100 },
     metaTitle: { type: String },
     metaDescription: { type: String },
   },
   { timestamps: true }
 );
+
+if (process.env.NODE_ENV !== "production" && mongoose.models.Service) {
+  delete mongoose.models.Service;
+}
 
 export const Service =
   mongoose.models.Service || mongoose.model<IService>("Service", ServiceSchema);

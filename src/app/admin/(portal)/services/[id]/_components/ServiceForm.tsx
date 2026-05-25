@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { Loader2, Plus, Trash2 } from "lucide-react";
+import { Loader2, Plus, Trash2, AlertCircle } from "lucide-react";
 import { TagInput } from "@/app/admin/_components/TagInput";
 import { ImageUploader } from "@/app/admin/_components/ImageUploader";
 
@@ -23,6 +23,8 @@ interface ServiceFormValues {
   categories: CategoryInput[];
   popularDestinations: string[];
   hiddenGems: string[];
+  isFeaturedHome: boolean;
+  featuredHomeOrder: number;
   metaTitle: string;
   metaDescription: string;
 }
@@ -48,8 +50,11 @@ export function ServiceForm({ serviceId, defaultValues }: ServiceFormProps) {
   const router = useRouter();
   const isEdit = !!serviceId;
   const [image, setImage] = useState(defaultValues?.image ?? "");
+  const [featuredInfo, setFeaturedInfo] = useState<{ count: number; max: number } | null>(null);
 
-  const { register, handleSubmit, control, setValue, formState: { errors, isSubmitting } } = useForm<ServiceFormValues>({
+  const wasFeatured = defaultValues?.isFeaturedHome ?? false;
+
+  const { register, handleSubmit, control, setValue, watch, formState: { errors, isSubmitting } } = useForm<ServiceFormValues>({
     defaultValues: {
       title: "",
       slug: "",
@@ -60,11 +65,36 @@ export function ServiceForm({ serviceId, defaultValues }: ServiceFormProps) {
       categories: [],
       popularDestinations: [],
       hiddenGems: [],
+      isFeaturedHome: false,
+      featuredHomeOrder: 100,
       metaTitle: "",
       metaDescription: "",
       ...defaultValues,
     },
   });
+
+  const isFeaturedHome = watch("isFeaturedHome");
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/admin/services/featured-count")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (!cancelled && data) setFeaturedInfo(data);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  // Slot is "taken" by this service if it was already featured before editing.
+  const otherFeaturedCount = featuredInfo
+    ? featuredInfo.count - (wasFeatured ? 1 : 0)
+    : 0;
+  const max = featuredInfo?.max ?? 6;
+  const atLimit = featuredInfo ? otherFeaturedCount >= max : false;
+  const checkboxDisabled = !isFeaturedHome && atLimit;
 
   const { fields: catFields, append: catAppend, remove: catRemove } = useFieldArray({
     control,
@@ -111,6 +141,8 @@ export function ServiceForm({ serviceId, defaultValues }: ServiceFormProps) {
           folder="services"
           label="Upload Service Image"
           className="h-48"
+          maxSizeMB={5}
+          aspectConstraint={{ ratio: 16 / 9, label: "16:9", tolerance: 0.15 }}
           onChange={(url, publicId) => {
             setImage(url);
             setValue("image", url);
@@ -122,6 +154,17 @@ export function ServiceForm({ serviceId, defaultValues }: ServiceFormProps) {
             setValue("imagePublicId", "");
           }}
         />
+        <p className="text-xs text-gray-400">
+          Required ratio: 16:9. Max 5 MB. Use{" "}
+          <a href="https://squoosh.app" target="_blank" rel="noreferrer" className="text-primary hover:underline">
+            squoosh.app
+          </a>{" "}
+          or{" "}
+          <a href="https://canva.com" target="_blank" rel="noreferrer" className="text-primary hover:underline">
+            canva.com
+          </a>{" "}
+          to resize.
+        </p>
       </div>
 
       <div className="bg-white rounded-2xl border border-gray-200 p-5 space-y-4">
@@ -183,6 +226,59 @@ export function ServiceForm({ serviceId, defaultValues }: ServiceFormProps) {
             )}
           />
         </Field>
+      </div>
+
+      <div className="bg-white rounded-2xl border border-gray-200 p-5 space-y-4">
+        <div className="flex items-center justify-between gap-3">
+          <p className="text-sm font-bold text-gray-800">Home Page Visibility</p>
+          {featuredInfo && (
+            <span className="text-[11px] font-medium text-gray-500">
+              {featuredInfo.count} of {max} featured
+            </span>
+          )}
+        </div>
+        <label
+          className={`flex items-start gap-3 select-none ${
+            checkboxDisabled ? "cursor-not-allowed opacity-60" : "cursor-pointer"
+          }`}
+        >
+          <input
+            type="checkbox"
+            {...register("isFeaturedHome")}
+            disabled={checkboxDisabled}
+            className="mt-1 h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary/30 disabled:cursor-not-allowed"
+          />
+          <span>
+            <span className="block text-sm font-medium text-gray-800">
+              Feature on Home page
+            </span>
+            <span className="block text-xs text-gray-500 mt-0.5">
+              Featured services appear in the &ldquo;Our Services&rdquo; section on the home page (max {max} shown).
+            </span>
+          </span>
+        </label>
+        {checkboxDisabled && (
+          <div className="flex items-start gap-2 px-3 py-2 bg-amber-50 border border-amber-200 rounded-xl">
+            <AlertCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+            <p className="text-xs text-amber-800">
+              You&apos;ve reached the limit of {max} featured services. Unfeature another service to enable this one.
+            </p>
+          </div>
+        )}
+        {isFeaturedHome && (
+          <Field label="Display Order">
+            <input
+              type="number"
+              min={0}
+              {...register("featuredHomeOrder", { valueAsNumber: true })}
+              className={inputCls}
+              placeholder="100"
+            />
+            <p className="text-xs text-gray-400 mt-1">
+              Lower numbers appear first. Default is 100.
+            </p>
+          </Field>
+        )}
       </div>
 
       <div className="bg-white rounded-2xl border border-gray-200 p-5 space-y-4">
