@@ -6,10 +6,17 @@ import Link from "next/link";
 import { toast } from "sonner";
 import {
   CheckCircle2, ChevronDown, Upload, Loader2,
-  Phone, MessageCircle, ArrowRight, Info, ExternalLink, Download,
+  Phone, MessageCircle, ArrowRight, Info, ExternalLink, Download, ZoomIn,
 } from "lucide-react";
 import { BRAND, DESTINATION_TYPES } from "@/app/lib/constants";
 import { cn } from "@/lib/utils";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 interface PackageOption {
   _id: string;
@@ -61,6 +68,7 @@ export function PayForm({ packages, qrCodes }: PayFormProps) {
   const [proofPreview, setProofPreview] = useState<string | null>(null);
   const [proofUploading, setProofUploading] = useState(false);
   const [downloadingQR, setDownloadingQR] = useState<string | null>(null);
+  const [zoomedQR, setZoomedQR] = useState<QRCodeOption | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const downloadQR = async (imageUrl: string, label: string, id: string) => {
@@ -204,6 +212,7 @@ export function PayForm({ packages, qrCodes }: PayFormProps) {
   }
 
   return (
+    <>
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10">
       {/* Page title */}
       <div className="mb-8 text-center">
@@ -507,15 +516,25 @@ export function PayForm({ packages, qrCodes }: PayFormProps) {
                     {idx === 1 && (
                       <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest">Backup QR</p>
                     )}
-                    <div className="relative aspect-square max-w-[220px] mx-auto">
+                    <button
+                      type="button"
+                      onClick={() => setZoomedQR(qr)}
+                      aria-label={`Zoom QR code for ${qr.label}`}
+                      className="relative aspect-square w-full max-w-[220px] mx-auto block cursor-zoom-in group rounded-lg overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                    >
                       <Image
                         src={qr.image}
                         alt={qr.label}
                         fill
-                        className="object-contain"
+                        className="object-contain transition-transform duration-300 group-hover:scale-105"
                         sizes="220px"
                       />
-                    </div>
+                      <span className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/30 transition-colors duration-200">
+                        <span className="bg-white/95 rounded-full p-2.5 opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100 transition-all duration-200 shadow-md">
+                          <ZoomIn className="w-5 h-5 text-primary" />
+                        </span>
+                      </span>
+                    </button>
                     <div>
                       <p className="text-sm font-bold text-gray-900">{qr.label}</p>
                       {qr.upiId && (
@@ -561,5 +580,50 @@ export function PayForm({ packages, qrCodes }: PayFormProps) {
         </div>
       </div>
     </div>
+
+    <Dialog
+      open={!!zoomedQR}
+      onOpenChange={(open) => {
+        if (!open) setZoomedQR(null);
+      }}
+    >
+      <DialogContent className="max-w-md sm:max-w-lg p-6">
+        {zoomedQR && (
+          <>
+            <DialogHeader>
+              <DialogTitle className="text-center">{zoomedQR.label}</DialogTitle>
+              {zoomedQR.upiId && (
+                <DialogDescription className="text-center font-mono">
+                  {zoomedQR.upiId}
+                </DialogDescription>
+              )}
+            </DialogHeader>
+            <div className="relative aspect-square w-full bg-white rounded-xl overflow-hidden border border-gray-200">
+              <Image
+                src={zoomedQR.image}
+                alt={zoomedQR.label}
+                fill
+                className="object-contain p-2"
+                sizes="(max-width: 640px) 90vw, 500px"
+              />
+            </div>
+            <button
+              type="button"
+              onClick={() => downloadQR(zoomedQR.image, zoomedQR.label, zoomedQR._id)}
+              disabled={downloadingQR === zoomedQR._id}
+              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-primary/8 text-primary text-xs font-semibold rounded-xl hover:bg-primary/15 active:scale-95 transition-all disabled:opacity-50 border border-primary/20"
+            >
+              {downloadingQR === zoomedQR._id ? (
+                <Loader2 className="w-3.5 h-3.5 animate-spin" />
+              ) : (
+                <Download className="w-3.5 h-3.5" />
+              )}
+              {downloadingQR === zoomedQR._id ? "Downloading…" : "Download QR Code"}
+            </button>
+          </>
+        )}
+      </DialogContent>
+    </Dialog>
+    </>
   );
 }
